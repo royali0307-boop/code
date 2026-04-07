@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日期计算器</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            flex: 1;
+            padding: 12px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 8px;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            color: #fff;
+        }
+        .card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 24px;
+            display: none;
+        }
+        .card.active { display: block; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #aaa; }
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+        }
+        input:focus, select:focus { border-color: #00d2ff; }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3rem;
+            color: #00d2ff;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #00d2ff;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            color: #00d2ff;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0,210,255,0.3);
+            cursor: pointer;
+        }
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            color: #00d2ff;
+            cursor: pointer;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0,210,255,0.3);
+            transition: all 0.3s;
+        }
+        .lang-switch:hover { background: rgba(0,210,255,0.2); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <select class="lang-switch" id="langSelect" onchange="changeLang(this.value)">
+            <option value="zh">🌐 中文</option>
+            <option value="en">🌐 English</option>
+            <option value="ko">🌐 한국어</option>
+            <option value="ja">🌐 日本語</option>
+            <option value="ms">🌐 Bahasa Melayu</option>
+            <option value="tl">🌐 Filipino</option>
+        </select>
+        <a href="index.html" class="back-btn" data-i18n="backHome">← 返回首页</a>
+        <h1 data-i18n="dateCalc">📅 日期计算器</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('calc')" data-i18n="tabCalcAdd">日期加减</button>
+            <button class="tab" onclick="showTab('diff')" data-i18n="tabDiff">日期间隔</button>
+            <button class="tab" onclick="showTab('countdown')" data-i18n="tabCountdown">倒计时</button>
+        </div>
+
+        <div id="calc" class="card active">
+            <div class="form-group">
+                <label data-i18n="startDate">起始日期</label>
+                <input type="date" id="calcStartDate">
+            </div>
+            <div class="form-group">
+                <label data-i18n="operation">操作</label>
+                <select id="calcOp">
+                    <option value="add" data-i18n="add">加 (+)</option>
+                    <option value="sub" data-i18n="sub">减 (-)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-i18n="daysInput">天数</label>
+                <input type="number" id="calcDays" placeholder="输入天数" data-i18n-placeholder="daysInput" value="0">
+            </div>
+            <button onclick="calcDate()" data-i18n="calc">计算</button>
+            <div class="result" id="calcResult"></div>
+        </div>
+
+        <div id="diff" class="card">
+            <div class="form-group">
+                <label data-i18n="startDate">起始日期</label>
+                <input type="date" id="diffStart">
+            </div>
+            <div class="form-group">
+                <label data-i18n="endDate">结束日期</label>
+                <input type="date" id="diffEnd">
+            </div>
+            <button onclick="calcDiff()" data-i18n="calc">计算</button>
+            <div class="result" id="diffResult"></div>
+        </div>
+
+        <div id="countdown" class="card">
+            <div class="form-group">
+                <label data-i18n="targetDate">目标日期</label>
+                <input type="date" id="targetDate">
+            </div>
+            <button onclick="calcCountdown()" data-i18n="calc">计算</button>
+            <div class="result" id="countdownResult"></div>
+        </div>
+    </div>
+
+    <script src="lang.js"></script>
+    <script>
+        document.getElementById('calcStartDate').valueAsDate = new Date();
+        document.getElementById('diffStart').valueAsDate = new Date();
+        document.getElementById('diffEnd').valueAsDate = new Date();
+
+        function showTab(id) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function formatDate(date) {
+            return date.toLocaleDateString(currentLang === 'zh' ? 'zh-CN' : currentLang, { 
+                year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
+            });
+        }
+
+        function calcDate() {
+            const start = document.getElementById('calcStartDate').value;
+            const op = document.getElementById('calcOp').value;
+            const days = parseInt(document.getElementById('calcDays').value) || 0;
+            
+            if (!start) {
+                document.getElementById('calcResult').textContent = t('selectDate');
+                return;
+            }
+            
+            const d = new Date(start);
+            if (op === 'add') d.setDate(d.getDate() + days);
+            else d.setDate(d.getDate() - days);
+            
+            document.getElementById('calcResult').textContent = formatDate(d);
+        }
+
+        function calcDiff() {
+            const start = document.getElementById('diffStart').value;
+            const end = document.getElementById('diffEnd').value;
+            
+            if (!start || !end) {
+                document.getElementById('diffResult').textContent = t('selectTwoDates');
+                return;
+            }
+            
+            const d1 = new Date(start);
+            const d2 = new Date(end);
+            const diff = Math.floor((d2 - d1) / (1000 * 60 * 60 * 24));
+            
+            document.getElementById('diffResult').textContent = `${t('diffDays')} ${Math.abs(diff)} ${t('days')}`;
+        }
+
+        function calcCountdown() {
+            const target = document.getElementById('targetDate').value;
+            
+            if (!target) {
+                document.getElementById('countdownResult').textContent = t('selectTarget');
+                return;
+            }
+            
+            const now = new Date();
+            now.setHours(0,0,0,0);
+            const d = new Date(target);
+            const diff = Math.floor((d - now) / (1000 * 60 * 60 * 24));
+            
+            let text = '';
+            if (diff > 0) text = `${t('daysLeft')} ${diff} ${t('days')}`;
+            else if (diff < 0) text = `${t('daysPassed')} ${Math.abs(diff)} ${t('days')}`;
+            else text = t('today');
+            
+            document.getElementById('countdownResult').textContent = text;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAllPages();
+        });
+    </script>
+</html>

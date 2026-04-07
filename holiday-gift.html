@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节日礼物推荐</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #00d2ff;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            color: #00d2ff;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0,210,255,0.3);
+            cursor: pointer;
+        }
+        .gift-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .gift-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+        .gift-card .icon { font-size: 3rem; margin-bottom: 15px; }
+        .gift-card h4 { color: #fff; margin-bottom: 8px; }
+        .gift-card p { color: #aaa; font-size: 0.85rem; margin-bottom: 10px; }
+        .gift-card .price { color: #00d2ff; font-size: 1.2rem; font-weight: bold; }
+        .gift-card .buy-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 20px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border: none;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            max-width: 350px;
+        }
+        .modal-content h3 { color: #333; margin-bottom: 15px; }
+        .modal-content .product-info { color: #666; margin-bottom: 20px; }
+        .modal-content .qr-code {
+            width: 200px;
+            height: 200px;
+            background: #f5f5f5;
+            margin: 0 auto 20px;
+        }
+        .modal-content .qr-code img { width: 100%; height: 100%; object-fit: contain; }
+        .modal-content .pay-tip { color: #888; font-size: 0.85rem; margin-bottom: 15px; }
+        .modal-content .pay-amount { color: #333; font-size: 1.1rem; margin-bottom: 15px; font-weight: bold; }
+        .modal-content .pay-amount span { color: #00d2ff; }
+        .modal-content .close-btn {
+            padding: 10px 30px;
+            background: #ddd;
+            border: none;
+            border-radius: 20px;
+            color: #333;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <select class="lang-switch" id="langSelect" onchange="changeLang(this.value)">
+        <option value="zh">🌐 中文</option>
+        <option value="en">🌐 English</option>
+        <option value="ko">🌐 한국어</option>
+        <option value="ja">🌐 日本語</option>
+        <option value="ms">🌐 Bahasa Melayu</option>
+        <option value="tl">🌐 Filipino</option>
+    </select>
+    <div class="container">
+        <a href="index.html" class="back-btn" data-i18n="backHome">← 返回首页</a>
+        <h1 data-i18n="holidayGift">🎄 节日礼物推荐</h1>
+        <div class="gift-grid" id="giftGrid"></div>
+    </div>
+
+    <div class="modal" id="payModal">
+        <div class="modal-content">
+            <h3>购买确认</h3>
+            <div class="product-info" id="productInfo"></div>
+            <div class="pay-amount">实付金额: <span id="payAmount"></span></div>
+            <div class="qr-code" id="qrCode"></div>
+            <div class="pay-tip">请使用支付宝扫码支付，完成后可在订单中查看</div>
+            <button class="close-btn" onclick="closeModal()">关闭</button>
+        </div>
+    </div>
+
+    <script src="lang.js"></script>
+    <script>
+        const giftData = {
+            en: [
+                { name: 'Smart Thermos', desc: 'Warm every day', price: '$45', icon: '🥤' },
+                { name: 'Cashmere Scarf', desc: 'Warm and comfortable', price: '$65', icon: '🧣' },
+                { name: 'Wireless Earbuds', desc: 'High quality sound', price: '$120', icon: '🎧' },
+                { name: 'Fashion Watch', desc: 'Elegant style', price: '$180', icon: '⌚' },
+                { name: 'Massage Device', desc: 'Relieve fatigue', price: '$80', icon: '💆' },
+                { name: 'Gift Box Set', desc: 'Perfect holiday gift', price: '$99', icon: '🎁' }
+            ],
+            ko: [
+                { name: '스마트 보온컵', desc: '매일 따뜻하게', price: '₩60,000', icon: '🥤' },
+                { name: '캐시미어 스카프', desc: '따뜻하고 편함', price: '₩90,000', icon: '🧣' },
+                { name: '무선 이어버드', desc: '고음질', price: '₩160,000', icon: '🎧' },
+                { name: '패션 시계', desc: '우아한 스타일', price: '₩240,000', icon: '⌚' },
+                { name: '마사지기', desc: '피로 해소', price: '₩110,000', icon: '💆' },
+                { name: '기프트 박스 세트', desc: '완벽한 휴일 선물', price: '₩130,000', icon: '🎁' }
+            ],
+            ja: [
+                { name: 'Smart Thermos', desc: '毎日暖かく', price: '¥6000', icon: '🥤' },
+                { name: 'Cashmere Scarf', desc: '暖かく快適', price: '¥9000', icon: '🧣' },
+                { name: 'Wireless Earbuds', desc: '高品質サウンド', price: '¥16000', icon: '🎧' },
+                { name: 'Fashion Watch', desc: 'エレガントスタイル', price: '¥24000', icon: '⌚' },
+                { name: 'Massage Device', desc: '疲労解消', price: '¥11000', icon: '💆' },
+                { name: 'Gift Box Set', desc: '最高の贈り物', price: '¥13000', icon: '🎁' }
+            ],
+            ms: [
+                { name: 'Smart Thermos', desc: 'Hangat setiap hari', price: 'RM180', icon: '🥤' },
+                { name: 'Syal Cashmere', desc: 'Hangat dan selesa', price: 'RM280', icon: '🧣' },
+                { name: 'Earbud Wayarles', desc: 'Kualiti bunyi tinggi', price: 'RM480', icon: '🎧' },
+                { name: 'Jam Tangan Fesyen', desc: 'Gaya elegan', price: 'RM720', icon: '⌚' },
+                { name: 'Peranti Urut', desc: 'Melegakan fatigue', price: 'RM320', icon: '💆' },
+                { name: 'Set Kotak Hadiah', desc: 'Hadiah percutian sempurna', price: 'RM400', icon: '🎁' }
+            ],
+            tl: [
+                { name: 'Smart Thermos', desc: 'Mainit araw-araw', price: '₱1500', icon: '🥤' },
+                { name: 'Cashmere Scarf', desc: 'Mainit at komportable', price: '₱2200', icon: '🧣' },
+                { name: 'Wireless Earbuds', desc: 'Mataas na kalidad ng tunog', price: '₱4000', icon: '🎧' },
+                { name: 'Fashion Watch', desc: 'Eleganteng estilo', price: '₱6000', icon: '⌚' },
+                { name: 'Massage Device', desc: 'Pagpapahina ng pagod', price: '₱2600', icon: '💆' },
+                { name: 'Gift Box Set', desc: 'Perpektong regalo sa holiday', price: '₱3300', icon: '🎁' }
+            ],
+            zh: [
+                { name: '智能保温杯', desc: '温暖每一天', price: '¥199', icon: '🥤' },
+                { name: '羊绒围巾', desc: '温暖舒适', price: '¥299', icon: '🧣' },
+                { name: '无线耳机', desc: '高品质音质', price: '¥599', icon: '🎧' },
+                { name: '时尚手表', desc: '轻奢品味', price: '¥899', icon: '⌚' },
+                { name: '按摩仪', desc: '舒缓疲劳', price: '¥399', icon: '💆' },
+                { name: '精美礼盒套装', desc: '节日馈赠佳品', price: '¥499', icon: '🎁' }
+            ]
+        };
+
+        const priceConfig = {
+            '智能保温杯': 199,
+            '羊绒围巾': 299,
+            '无线耳机': 599,
+            '时尚手表': 899,
+            '按摩仪': 399,
+            '精美礼盒套装': 499
+        };
+        
+        function renderGifts() {
+            const gifts = giftData[currentLang] || giftData.zh;
+            document.getElementById('giftGrid').innerHTML = gifts.map(g => {
+                const actualPrice = priceConfig[g.name] || parseFloat(getPriceValue(g.price));
+                return `
+                <div class="gift-card">
+                    <div class="icon">${g.icon}</div>
+                    <h4>${g.name}</h4>
+                    <p>${g.desc}</p>
+                    <div class="price" data-actual-price="${actualPrice}">${g.price}</div>
+                    <button class="buy-btn" onclick="showPay('${g.name}', '${g.price}', ${actualPrice})">立即购买</button>
+                </div>
+            `}).join('');
+        }
+
+        function getPriceValue(priceStr) {
+            return priceStr.replace(/[^0-9.]/g, '');
+        }
+
+        function validatePriceFormat(priceStr) {
+            const regex = /^[¥$₩₱RM]\s*\d+(\.\d{1,2})?$/;
+            if (!regex.test(priceStr.trim())) {
+                return { valid: false, msg: '金额格式不正确' };
+            }
+            const num = parseFloat(getPriceValue(priceStr));
+            if (isNaN(num) || num <= 0) {
+                return { valid: false, msg: '金额必须大于0' };
+            }
+            return { valid: true, value: num };
+        }
+
+        function verifyDisplayPrice(displayPrice, actualValue) {
+            const displayValue = getPriceValue(displayPrice);
+            if (displayValue !== actualValue.toString()) {
+                return { valid: false, msg: '显示金额与实际金额不符' };
+            }
+            return { valid: true };
+        }
+
+        function showPay(productName, price, actualValue) {
+            const validation = validatePriceFormat(price);
+            if (!validation.valid) {
+                alert('价格格式校验失败: ' + validation.msg);
+                return;
+            }
+            
+            const verify = verifyDisplayPrice(price, actualValue);
+            if (!verify.valid) {
+                alert('金额校验失败: ' + verify.msg);
+                return;
+            }
+            
+            document.getElementById('productInfo').textContent = productName;
+            document.getElementById('payAmount').textContent = `¥${actualValue}`;
+            
+            document.getElementById('qrCode').innerHTML = `<img src="E:/opencode/tool package/image/Image_20260403045141.jpg" alt="支付宝收款码" style="width:200px;height:200px;">`;
+            
+            document.getElementById('payModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('payModal').classList.remove('active');
+        }
+        
+        renderGifts();
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAllPages();
+        });
+    </script>
+</body>
+</html>

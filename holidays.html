@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年节假日</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #00d2ff;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            color: #00d2ff;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0,210,255,0.3);
+            cursor: pointer;
+        }
+        .holiday-list { display: grid; gap: 15px; }
+        .holiday-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+        }
+        .holiday-item .name { font-size: 1.1rem; font-weight: bold; }
+        .holiday-item .date { color: #888; font-size: 0.9rem; }
+        .holiday-item .days { color: #00d2ff; font-weight: bold; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <select class="lang-switch" id="langSelect" onchange="changeLang(this.value)">
+        <option value="zh">🌐 中文</option>
+        <option value="en">🌐 English</option>
+        <option value="ko">🌐 한국어</option>
+        <option value="ja">🌐 日本語</option>
+        <option value="ms">🌐 Bahasa Melayu</option>
+        <option value="tl">🌐 Filipino</option>
+    </select>
+    <div class="container">
+        <a href="index.html" class="back-btn" data-i18n="backHome">← 返回首页</a>
+        <h1 data-i18n="holiday">🎉 2026年节假日</h1>
+        <div class="holiday-list" id="holidayList"></div>
+    </div>
+
+    <script src="lang.js"></script>
+    <script>
+        const holidayNames = {
+            'New Year': t('holidayList.New Year'),
+            'Spring Festival': t('holidayList.Spring Festival'),
+            'Qingming': t('holidayList.Qingming'),
+            'Labor Day': t('holidayList.Labor Day'),
+            'Dragon Boat': t('holidayList.Dragon Boat'),
+            'Mid-Autumn': t('holidayList.Mid-Autumn'),
+            'National Day': t('holidayList.National Day')
+        };
+        
+        const now = new Date();
+        now.setHours(0,0,0,0);
+        
+        function renderHolidays() {
+            const list = document.getElementById('holidayList');
+            const daysText = t('days');
+            const daysLeft = t('daysLeft');
+            const daysPassed = t('daysPassed');
+            const today = t('today');
+            
+            list.innerHTML = holidays2026.map(h => {
+                const holidayDate = new Date(h.date);
+                const diff = Math.floor((holidayDate - now) / (1000 * 60 * 60 * 24));
+                let status = diff > 0 ? `${daysLeft} ${diff} ${daysText}` : (diff === 0 ? today : `${daysPassed} ${Math.abs(diff)} ${daysText}`);
+                
+                const name = holidayNames[h.name] || h.name;
+                
+                return `
+                    <div class="holiday-item">
+                        <div>
+                            <div class="name">${name}</div>
+                            <div class="date">${h.date}</div>
+                        </div>
+                        <div class="days">${status}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        renderHolidays();
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAllPages();
+        });
+    </script>
+</body>
+</html>
