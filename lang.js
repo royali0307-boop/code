@@ -1,4 +1,4 @@
-const translations = {
+window.translations = {
     en: {
         title: '🛠️ AI Tool Box', subtitle: 'Make Life Simpler',
         dateCalc: 'Date Calculator', dateCalcDesc: 'Date +/-, Interval, Countdown',
@@ -300,17 +300,17 @@ const holidays2026 = [
     { name: 'National Day', date: '2026-10-01' }
 ];
 
-let currentLang = localStorage.getItem('lang') || 'en';
+window.currentLang = localStorage.getItem('lang') || 'en';
 
 function changeLang(lang) {
     localStorage.setItem('lang', lang);
-    currentLang = lang;
+    window.currentLang = lang;
     if (typeof updateLang === 'function') updateLang();
     updateAllPages();
 }
 
 function t(key) {
-    return (translations[currentLang] && translations[currentLang][key]) || key;
+    return (window.translations[window.currentLang] && window.translations[window.currentLang][key]) || key;
 }
 
 function updateAllPages() {
@@ -325,7 +325,7 @@ function updateAllPages() {
     });
     
     if (document.getElementById('langSelect')) {
-        document.getElementById('langSelect').value = currentLang;
+        document.getElementById('langSelect').value = window.currentLang;
     }
 }
 
@@ -342,7 +342,7 @@ function getHolidays() {
 
 document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('langSelect')) {
-        document.getElementById('langSelect').value = currentLang;
+        document.getElementById('langSelect').value = window.currentLang;
     }
     updateAllPages();
 });
