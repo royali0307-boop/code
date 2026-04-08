@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔳 Free QR Code Generator - Create QR Codes Online</title>
+    <meta name="description" content="Generate QR codes free online. Create QR codes for URLs, text, WiFi, vCards, and more. Download as PNG or SVG. Fast, simple, no registration required.">
+    <meta name="keywords" content="QR code generator, free QR code, create QR code, QR code maker, QR code creator, online QR code, 二维码生成, QR码生成">
+    <meta property="og:title" content="🔳 Free QR Code Generator">
+    <meta property="og:description" content="Create QR codes free online. Download as PNG or SVG.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #00d2ff;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #aaa; }
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #00d2ff;
+        }
+        textarea { resize: vertical; min-height: 100px; }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        button:hover { transform: translateY(-2px); }
+        .qr-result {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            margin-top: 30px;
+        }
+        .qr-result canvas {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .qr-result img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .download-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border-radius: 20px;
+            color: #fff;
+            text-decoration: none;
+            margin: 5px;
+        }
+        .tips { color: #888; font-size: 0.85rem; margin-top: 15px; }
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            color: #00d2ff;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0,210,255,0.3);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <select class="lang-switch" id="langSelect" onchange="changeLang(this.value)">
+        <option value="en">🌐 English</option>
+        <option value="gh">🌐 Ghana</option>
+        <option value="ng">🌐 Nigeria</option>
+        <option value="uk">🌐 UK</option>
+        <option value="in">🌐 India</option>
+        <option value="ph">🌐 Philippines</option>
+        <option value="zh">🌐 中文</option>
+        <option value="ko">🌐 한국어</option>
+        <option value="ja">🌐 日本語</option>
+        <option value="ms">🌐 Bahasa Melayu</option>
+        <option value="tl">🌐 Filipino</option>
+    </select>
+    <div class="container">
+        <a href="index.html" class="back-btn" data-i18n="backHome">← Back</a>
+        <h1 data-i18n="qrCode">🔳 QR Code Generator</h1>
+
+        <div class="form-group">
+            <label data-i18n="qrContent">Content (URL/Text)</label>
+            <textarea id="qrContent" placeholder="Enter URL or text..." data-i18n-placeholder="qrContentPlaceholder"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label data-i18n="qrSize">Size</label>
+            <select id="qrSize">
+                <option value="128">128 x 128</option>
+                <option value="256" selected>256 x 256</option>
+                <option value="512">512 x 512</option>
+            </select>
+        </div>
+
+        <button onclick="generateQR()" data-i18n="generateQR">Generate QR Code</button>
+
+        <div class="qr-result" id="qrResult" style="display: none;">
+            <img id="qrImage" alt="Generated QR Code - Scan with your phone" title="QR Code">
+            <br>
+            <a class="download-btn" id="downloadPng" data-i18n="downloadPng">Download PNG</a>
+            <a class="download-btn" id="downloadSvg" data-i18n="downloadSvg">Download SVG</a>
+            <p class="tips" data-i18n="qrTips">Right-click to save or use the download buttons</p>
+        </div>
+    </div>
+
+    <script src="lang.js"></script>
+    <script>
+        function generateQR() {
+            const content = document.getElementById('qrContent').value.trim();
+            const size = parseInt(document.getElementById('qrSize').value);
+            
+            if (!content) {
+                alert('Please enter content');
+                return;
+            }
+
+            const qr = generateQRCode(content, size);
+            
+            document.getElementById('qrImage').src = qr;
+            document.getElementById('qrResult').style.display = 'block';
+            
+            document.getElementById('downloadPng').onclick = () => {
+                const link = document.createElement('a');
+                link.download = 'qrcode.png';
+                link.href = qr;
+                link.click();
+            };
+            
+            document.getElementById('downloadSvg').onclick = () => {
+                const svg = generateSVG(content, size);
+                const blob = new Blob([svg], { type: 'image/svg+xml' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = 'qrcode.svg';
+                link.href = url;
+                link.click();
+            };
+        }
+
+        function generateQRCode(text, size) {
+            const qr = createQRData(text, size);
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, size, size);
+            
+            const moduleCount = qr.length;
+            const moduleSize = size / moduleCount;
+            
+            ctx.fillStyle = '#000000';
+            for (let row = 0; row < moduleCount; row++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    if (qr[row][col]) {
+                        ctx.fillRect(col * moduleSize, row * moduleSize, moduleSize, moduleSize);
+                    }
+                }
+            }
+            
+            return canvas.toDataURL('image/png');
+        }
+
+        function generateSVG(text, size) {
+            const qr = createQRData(text, size);
+            const moduleCount = qr.length;
+            const moduleSize = 100 / moduleCount;
+            
+            let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">`;
+            svg += `<rect width="100%" height="100%" fill="white"/>`;
+            
+            for (let row = 0; row < moduleCount; row++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    if (qr[row][col]) {
+                        svg += `<rect x="${col * moduleSize}" y="${row * moduleSize}" width="${moduleSize}" height="${moduleSize}" fill="black"/>`;
+                    }
+                }
+            }
+            
+            svg += '</svg>';
+            return svg;
+        }
+
+        function createQRData(text, size) {
+            const version = getQRVersion(text.length);
+            const moduleCount = 17 + version * 4;
+            const modules = [];
+            
+            for (let i = 0; i < moduleCount; i++) {
+                modules[i] = [];
+                for (let j = 0; j < moduleCount; j++) {
+                    modules[i][j] = false;
+                }
+            }
+            
+            addFinderPatterns(modules, 0, 0);
+            addFinderPatterns(modules, moduleCount - 7, 0);
+            addFinderPatterns(modules, 0, moduleCount - 7);
+            
+            addTimingPatterns(modules, moduleCount);
+            
+            addAlignmentPatterns(modules, version, moduleCount);
+            
+            const data = encodeData(text, version);
+            placeData(modules, data, moduleCount);
+            
+            return modules;
+        }
+
+        function getQRVersion(dataLength) {
+            if (dataLength < 25) return 1;
+            if (dataLength < 47) return 2;
+            if (dataLength < 77) return 3;
+            if (dataLength < 114) return 4;
+            return 5;
+        }
+
+        function addFinderPatterns(modules, row, col) {
+            for (let i = 0; i < 7; i++) {
+                for (let j = 0; j < 7; j++) {
+                    const isBorder = i === 0 || i === 6 || j === 0 || j === 6;
+                    const isCenter = i >= 2 && i <= 4 && j >= 2 && j <= 4;
+                    modules[row + i][col + j] = isBorder || isCenter;
+                }
+            }
+        }
+
+        function addTimingPatterns(modules, size) {
+            for (let i = 8; i < size - 8; i++) {
+                modules[6][i] = i % 2 === 0;
+                modules[i][6] = i % 2 === 0;
+            }
+        }
+
+        function addAlignmentPatterns(modules, version, size) {
+            if (version < 2) return;
+            const positions = version === 2 ? [6, 18] : [6, 22];
+            for (let i of positions) {
+                for (let j of positions) {
+                    if (modules[i][j] === false) {
+                        for (let r = i - 2; r <= i + 2; r++) {
+                            for (let c = j - 2; c <= j + 2; c++) {
+                                if (r >= 0 && r < size && c >= 0 && c < size) {
+                                    const isBorder = r === i - 2 || r === i + 2 || c === j - 2 || c === j + 2;
+                                    const isCenter = r >= i - 1 && r <= i + 1 && c >= j - 1 && c <= j + 1;
+                                    modules[r][c] = isBorder || isCenter;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function encodeData(text, version) {
+            const data = [];
+            data.push(0x40);
+            
+            for (let i = 0; i < text.length; i++) {
+                data.push(text.charCodeAt(i));
+            }
+            
+            while (data.length < getDataCapacity(version)) {
+                data.push(0);
+            }
+            
+            return data;
+        }
+
+        function getDataCapacity(version) {
+            const capacities = [0, 25, 47, 77, 114, 154];
+            return capacities[version] || 154;
+        }
+
+        function placeData(modules, data, size) {
+            let bitIndex = 0;
+            const bits = [];
+            
+            for (let b of data) {
+                for (let i = 7; i >= 0; i--) {
+                    bits.push((b >> i) & 1);
+                }
+            }
+            
+            let col = size - 1;
+            let direction = -1;
+            let row = size - 1;
+            
+            while (col > 0) {
+                if (col === 6) col--;
+                
+                if (modules[row][col] === false && bitIndex < bits.length) {
+                    modules[row][col] = bits[bitIndex] === 1;
+                    bitIndex++;
+                }
+                
+                row += direction;
+                if (row < 0 || row >= size) {
+                    direction = -direction;
+                    row += direction;
+                    col -= 2;
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof updateAllPages === 'function') {
+                updateAllPages();
+            }
+        });
+    </script>
+</body>
+</html>

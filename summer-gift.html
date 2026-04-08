@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>夏日礼物推荐</title>
+    <title>🎁 Summer Gift Ideas 2026 - Curated Gift Recommendations</title>
+    <meta name="description" content="Discover the best summer gift ideas for 2026. Curated selection of cooling fans, sun hats, sunscreens, and beach essentials. Perfect gifts for summer vacations and events.">
+    <meta name="keywords" content="summer gifts, gift ideas, summer presents, cooling gifts, beach gifts, 夏日礼物, 礼物推荐">
+    <meta property="og:title" content="🎁 Summer Gift Ideas 2026">
+    <meta property="og:description" content="Curated summer gift recommendations for 2026. Find the perfect gift!">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -118,16 +122,16 @@
 </head>
 <body>
     <select class="lang-switch" id="langSelect" onchange="changeLang(this.value)">
-        <option value="zh">🌐 中文</option>
         <option value="en">🌐 English</option>
+        <option value="zh">🌐 中文</option>
         <option value="ko">🌐 한국어</option>
         <option value="ja">🌐 日本語</option>
         <option value="ms">🌐 Bahasa Melayu</option>
         <option value="tl">🌐 Filipino</option>
     </select>
     <div class="container">
-        <a href="index.html" class="back-btn" data-i18n="backHome">← 返回首页</a>
-        <h1 data-i18n="summerGift">🎁 夏日礼物推荐</h1>
+        <a href="index.html" class="back-btn" data-i18n="backHome">← Back</a>
+        <h1 data-i18n="summerGift">🎁 Summer Gift Recommendations</h1>
         <div class="gift-grid" id="giftGrid"></div>
     </div>
 
@@ -243,6 +247,8 @@
             return { valid: true };
         }
 
+        const alipayQRCode = 'https://aiaix.top/images/alipay-qr.png';
+        
         function showPay(productName, price, actualValue) {
             const validation = validatePriceFormat(price);
             if (!validation.valid) {
@@ -260,7 +266,7 @@
             document.getElementById('payAmount').textContent = `¥${actualValue}`;
             
             const qrCode = document.getElementById('qrCode');
-            qrCode.innerHTML = `<img src="E:/opencode/tool package/image/Image_20260403045141.jpg" alt="支付宝收款码" style="width:200px;height:200px;">`;
+            qrCode.innerHTML = `<img src="${alipayQRCode}" alt="Alipay Payment QR Code - Scan to pay" style="width:200px;height:200px;">`;
             
             document.getElementById('payModal').classList.add('active');
         }

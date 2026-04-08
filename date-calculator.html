@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>日期计算器</title>
+    <title>📅 Date Calculator - Free Online Date Tools</title>
+    <meta name="description" content="Free online date calculator. Calculate date differences, add/subtract days, countdown to any date. Simple and fast tool for date calculations.">
+    <meta name="keywords" content="date calculator, date difference, day calculator, countdown, date add, date subtract">
+    <meta property="og:title" content="📅 Free Online Date Calculator">
+    <meta property="og:description" content="Calculate dates, differences, and countdowns online. Free tool for everyone.">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -122,61 +126,66 @@
 <body>
     <div class="container">
         <select class="lang-switch" id="langSelect" onchange="changeLang(this.value)">
-            <option value="zh">🌐 中文</option>
             <option value="en">🌐 English</option>
+            <option value="gh">🌐 Ghana</option>
+            <option value="ng">🌐 Nigeria</option>
+            <option value="uk">🌐 UK</option>
+            <option value="in">🌐 India</option>
+            <option value="ph">🌐 Philippines</option>
+            <option value="zh">🌐 中文</option>
             <option value="ko">🌐 한국어</option>
             <option value="ja">🌐 日本語</option>
             <option value="ms">🌐 Bahasa Melayu</option>
             <option value="tl">🌐 Filipino</option>
         </select>
-        <a href="index.html" class="back-btn" data-i18n="backHome">← 返回首页</a>
-        <h1 data-i18n="dateCalc">📅 日期计算器</h1>
+        <a href="index.html" class="back-btn" data-i18n="backHome">← Back</a>
+        <h1 data-i18n="dateCalc">📅 Date Calculator</h1>
         
         <div class="tabs">
-            <button class="tab active" onclick="showTab('calc')" data-i18n="tabCalcAdd">日期加减</button>
-            <button class="tab" onclick="showTab('diff')" data-i18n="tabDiff">日期间隔</button>
-            <button class="tab" onclick="showTab('countdown')" data-i18n="tabCountdown">倒计时</button>
+            <button class="tab active" onclick="showTab('calc')" data-i18n="tabCalcAdd">Date +/-</button>
+            <button class="tab" onclick="showTab('diff')" data-i18n="tabDiff">Interval</button>
+            <button class="tab" onclick="showTab('countdown')" data-i18n="tabCountdown">Countdown</button>
         </div>
 
         <div id="calc" class="card active">
             <div class="form-group">
-                <label data-i18n="startDate">起始日期</label>
+                <label data-i18n="startDate">Start Date</label>
                 <input type="date" id="calcStartDate">
             </div>
             <div class="form-group">
-                <label data-i18n="operation">操作</label>
+                <label data-i18n="operation">Operation</label>
                 <select id="calcOp">
-                    <option value="add" data-i18n="add">加 (+)</option>
-                    <option value="sub" data-i18n="sub">减 (-)</option>
+                    <option value="add" data-i18n="add">Add (+)</option>
+                    <option value="sub" data-i18n="sub">Subtract (-)</option>
                 </select>
             </div>
             <div class="form-group">
-                <label data-i18n="daysInput">天数</label>
-                <input type="number" id="calcDays" placeholder="输入天数" data-i18n-placeholder="daysInput" value="0">
+                <label data-i18n="daysInput">Days</label>
+                <input type="number" id="calcDays" placeholder="Days" data-i18n-placeholder="daysInput" value="0">
             </div>
-            <button onclick="calcDate()" data-i18n="calc">计算</button>
+            <button onclick="calcDate()" data-i18n="calc">Calculate</button>
             <div class="result" id="calcResult"></div>
         </div>
 
         <div id="diff" class="card">
             <div class="form-group">
-                <label data-i18n="startDate">起始日期</label>
+                <label data-i18n="startDate">Start Date</label>
                 <input type="date" id="diffStart">
             </div>
             <div class="form-group">
-                <label data-i18n="endDate">结束日期</label>
+                <label data-i18n="endDate">End Date</label>
                 <input type="date" id="diffEnd">
             </div>
-            <button onclick="calcDiff()" data-i18n="calc">计算</button>
+            <button onclick="calcDiff()" data-i18n="calc">Calculate</button>
             <div class="result" id="diffResult"></div>
         </div>
 
         <div id="countdown" class="card">
             <div class="form-group">
-                <label data-i18n="targetDate">目标日期</label>
+                <label data-i18n="targetDate">Target Date</label>
                 <input type="date" id="targetDate">
             </div>
-            <button onclick="calcCountdown()" data-i18n="calc">计算</button>
+            <button onclick="calcCountdown()" data-i18n="calc">Calculate</button>
             <div class="result" id="countdownResult"></div>
         </div>
     </div>

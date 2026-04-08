@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>节日礼物推荐</title>
+    <title>🎄 Holiday Gift Ideas - Festival Present Recommendations</title>
+    <meta name="description" content="Find the perfect holiday gift for any occasion. Curated selection of smart thermoses, scarves, earbuds, watches, massage devices, and gift sets. Best festival present ideas.">
+    <meta name="keywords" content="holiday gifts, festival presents, christmas gifts, gift recommendations, party gifts, 节日礼物, 礼物推荐">
+    <meta property="og:title" content="🎄 Holiday Gift Ideas">
+    <meta property="og:description" content="Curated holiday gift recommendations for every occasion">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -113,16 +117,21 @@
 </head>
 <body>
     <select class="lang-switch" id="langSelect" onchange="changeLang(this.value)">
-        <option value="zh">🌐 中文</option>
         <option value="en">🌐 English</option>
+        <option value="gh">🌐 Ghana</option>
+        <option value="ng">🌐 Nigeria</option>
+        <option value="uk">🌐 UK</option>
+        <option value="in">🌐 India</option>
+        <option value="ph">🌐 Philippines</option>
+        <option value="zh">🌐 中文</option>
         <option value="ko">🌐 한국어</option>
         <option value="ja">🌐 日本語</option>
         <option value="ms">🌐 Bahasa Melayu</option>
         <option value="tl">🌐 Filipino</option>
     </select>
     <div class="container">
-        <a href="index.html" class="back-btn" data-i18n="backHome">← 返回首页</a>
-        <h1 data-i18n="holidayGift">🎄 节日礼物推荐</h1>
+        <a href="index.html" class="back-btn" data-i18n="backHome">← Back</a>
+        <h1 data-i18n="holidayGift">🎄 Holiday Gift Recommendations</h1>
         <div class="gift-grid" id="giftGrid"></div>
     </div>
 
@@ -238,6 +247,8 @@
             return { valid: true };
         }
 
+        const alipayQRCode = 'https://aiaix.top/images/alipay-qr.png';
+        
         function showPay(productName, price, actualValue) {
             const validation = validatePriceFormat(price);
             if (!validation.valid) {
@@ -254,7 +265,7 @@
             document.getElementById('productInfo').textContent = productName;
             document.getElementById('payAmount').textContent = `¥${actualValue}`;
             
-            document.getElementById('qrCode').innerHTML = `<img src="E:/opencode/tool package/image/Image_20260403045141.jpg" alt="支付宝收款码" style="width:200px;height:200px;">`;
+            document.getElementById('qrCode').innerHTML = `<img src="${alipayQRCode}" alt="Alipay Payment QR Code - Scan to pay" style="width:200px;height:200px;">`;
             
             document.getElementById('payModal').classList.add('active');
         }

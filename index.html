@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>实用工具箱</title>
+    <title>🛠️ Online Tool Box - Free Utilities for Everyone</title>
+    <meta name="description" content="Free online tool box with date calculator, QR code generator, JSON formatter, Gaokao countdown, holiday calendar, and gift recommendations. Simple and easy to use.">
+    <meta name="keywords" content="online tools, date calculator, QR code generator, JSON formatter, free tools, utilities">
+    <meta name="author" content="Tool Box">
+    <meta property="og:title" content="🛠️ Online Tool Box - Free Utilities">
+    <meta property="og:description" content="Free online tools including date calculator, QR code generator, JSON formatter and more.">
+    <meta property="og:type" content="website">
     <style>
         * {
             margin: 0;
@@ -300,16 +306,21 @@
 </head>
 <body>
     <select class="lang-switch" id="langSelect" onchange="changeLang(this.value)">
-        <option value="zh">🌐 中文</option>
         <option value="en">🌐 English</option>
+        <option value="gh">🌐 Ghana</option>
+        <option value="ng">🌐 Nigeria</option>
+        <option value="uk">🌐 UK</option>
+        <option value="in">🌐 India</option>
+        <option value="ph">🌐 Philippines</option>
+        <option value="zh">🌐 中文</option>
         <option value="ko">🌐 한국어</option>
         <option value="ja">🌐 日本語</option>
         <option value="ms">🌐 Bahasa Melayu</option>
         <option value="tl">🌐 Filipino</option>
     </select>
     <div class="container">
-        <h1 id="title" data-i18n="title">🛠️ 实用工具箱</h1>
-        <p class="subtitle" id="subtitle" data-i18n="subtitle">让生活更简单</p>
+        <h1 id="title" data-i18n="title">🛠️ Tool Box</h1>
+        <p class="subtitle" id="subtitle" data-i18n="subtitle">Make Life Simpler</p>
         
         <div class="calendar-box">
             <div class="calendar-header">
@@ -350,6 +361,16 @@
                 <div class="icon">🎄</div>
                 <h3 data-i18n="holidayGift">节日礼物推荐</h3>
                 <p data-i18n="holidayGiftDesc">节日精选礼物</p>
+            </div>
+            <div class="tool-card" onclick="window.location.href='qrcode.html'">
+                <div class="icon">🔳</div>
+                <h3 data-i18n="qrCode">二维码生成器</h3>
+                <p data-i18n="qrContent">生成QR码</p>
+            </div>
+            <div class="tool-card" onclick="window.location.href='json-formatter.html'">
+                <div class="icon">📋</div>
+                <h3 data-i18n="jsonTool">JSON解析器</h3>
+                <p data-i18n="jsonInput">格式化/压缩/验证</p>
             </div>
         </div>
     </div>
