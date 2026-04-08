@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📅 Date Calculator - Free Online Date Tools</title>
-    <meta name="description" content="Free online date calculator. Calculate date differences, add/subtract days, countdown to any date. Simple and fast tool for date calculations.">
+    <meta name="description" content="Free online date calculator tool. Calculate date differences, add or subtract days from any date, and countdown to future events. Simple, fast, and accurate date computation for everyone.">
     <meta name="keywords" content="date calculator, date difference, day calculator, countdown, date add, date subtract">
     <meta property="og:title" content="📅 Free Online Date Calculator">
     <meta property="og:description" content="Calculate dates, differences, and countdowns online. Free tool for everyone.">
@@ -160,6 +160,7 @@
         <h1 data-i18n="dateCalc">📅 Date Calculator</h1>
         <h2>Calculate date differences, add or subtract days, countdown to any date</h2>
         
+        <h3>Date +/-</h3>
         <div class="tabs">
             <button class="tab active" onclick="showTab('calc')" data-i18n="tabCalcAdd">Date +/-</button>
             <button class="tab" onclick="showTab('diff')" data-i18n="tabDiff">Interval</button>
@@ -186,6 +187,7 @@
             <div class="result" id="calcResult"></div>
         </div>
 
+        <h3>Date Interval</h3>
         <div id="diff" class="card">
             <div class="form-group">
                 <label data-i18n="startDate">Start Date</label>
@@ -199,6 +201,7 @@
             <div class="result" id="diffResult"></div>
         </div>
 
+        <h3>Countdown</h3>
         <div id="countdown" class="card">
             <div class="form-group">
                 <label data-i18n="targetDate">Target Date</label>
