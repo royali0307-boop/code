@@ -312,6 +312,33 @@
             flex-wrap: wrap;
             margin-bottom: 20px;
         }
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .social-links a {
+            color: #00d2ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+        .social-links a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        footer p {
+            color: #888;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -388,6 +415,13 @@
                 <h3 data-i18n="jsonTool">JSON解析器</h3>
                 <p data-i18n="jsonInput">格式化/压缩/验证</p>
             </div>
+        </div>
+        
+        <h2>Follow Us</h2>
+        <div class="social-links">
+            <a href="https://x.com/AiaixTop" target="_blank" rel="noopener" title="Twitter">🐦 Twitter</a>
+            <a href="https://www.instagram.com/aiaixtop/" target="_blank" rel="noopener" title="Instagram">📷 Instagram</a>
+            <a href="https://www.linkedin.com/in/aiaix-top-697b10401/" target="_blank" rel="noopener" title="LinkedIn">💼 LinkedIn</a>
         </div>
     </div>
 
@@ -541,5 +575,14 @@
             changeLang(this.value);
         });
     </script>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://x.com/AiaixTop" target="_blank" rel="noopener" title="Twitter">🐦 Twitter</a>
+            <a href="https://www.instagram.com/aiaixtop/" target="_blank" rel="noopener" title="Instagram">📷 Instagram</a>
+            <a href="https://www.linkedin.com/in/aiaix-top-697b10401/" target="_blank" rel="noopener" title="LinkedIn">💼 LinkedIn</a>
+        </div>
+        <p>&copy; 2026 AI Online Tool Box. All rights reserved.</p>
+    </footer>
 </body>
 </html>
