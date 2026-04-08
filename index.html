@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🛠️ Online Tool Box - Free Utilities for Everyone</title>
-    <meta name="description" content="Free online tool box with date calculator, QR code generator, JSON formatter, Gaokao countdown, holiday calendar, and gift recommendations. Simple and easy to use.">
-    <meta name="keywords" content="online tools, date calculator, QR code generator, JSON formatter, free tools, utilities">
+    <title>🛠️ AI Online Tool Box - Free Utilities for Everyone</title>
+    <meta name="description" content="Free AI-powered online tool box with date calculator, QR code generator, JSON formatter, Gaokao countdown, holiday calendar, and gift recommendations. Simple and easy to use.">
+    <meta name="keywords" content="AI tools, online tools, date calculator, QR code generator, JSON formatter, free tools, utilities, AI assistant">
     <meta name="author" content="Tool Box">
-    <meta property="og:title" content="🛠️ Online Tool Box - Free Utilities">
-    <meta property="og:description" content="Free online tools including date calculator, QR code generator, JSON formatter and more.">
+    <meta property="og:title" content="🛠️ AI Online Tool Box - Free Utilities">
+    <meta property="og:description" content="Free AI-powered online tools including date calculator, QR code generator, JSON formatter and more.">
     <meta property="og:type" content="website">
     <style>
         * {
@@ -386,7 +386,12 @@
             ko: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
             ja: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
             ms: ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],
-            tl: ['Enero', 'Pebrero', 'Marso', 'Abril', 'Mayo', 'Hunyo', 'Hulyo', 'Agosto', 'Setyembre', 'Oktubre', 'Nobyembre', 'Disyembre']
+            tl: ['Enero', 'Pebrero', 'Marso', 'Abril', 'Mayo', 'Hunyo', 'Hulyo', 'Agosto', 'Setyembre', 'Oktubre', 'Nobyembre', 'Disyembre'],
+            gh: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            ng: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            uk: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            in: ['जनवरी', 'फरवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर'],
+            ph: ['Enero', 'Pebrero', 'Marso', 'Abril', 'Mayo', 'Hunyo', 'Hulyo', 'Agosto', 'Setyembre', 'Oktubre', 'Nobyembre', 'Disyembre']
         };
         const dayNames = {
             zh: ['日', '一', '二', '三', '四', '五', '六'],
@@ -394,7 +399,12 @@
             ko: ['일', '월', '화', '수', '목', '금', '토'],
             ja: ['日', '月', '火', '水', '木', '金', '土'],
             ms: ['Aha', 'Isn', 'Sel', 'Rab', 'Kha', 'Jum', 'Sab'],
-            tl: ['Lin', 'Lun', 'Mar', 'Miy', 'Huw', 'Biy', 'Sab']
+            tl: ['Lin', 'Lun', 'Mar', 'Miy', 'Huw', 'Biy', 'Sab'],
+            gh: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            ng: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            uk: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            in: ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'],
+            ph: ['Lin', 'Lun', 'Mar', 'Miy', 'Huw', 'Biy', 'Sab']
         };
         
         function renderCalendar() {
@@ -404,9 +414,12 @@
             const totalDays = lastDay.getDate();
             const today = new Date();
             
-            document.getElementById('calMonth').textContent = calYear + ' ' + monthNames[currentLang][calMonth];
+            const monthData = monthNames[currentLang] || monthNames.en;
+            const dayData = dayNames[currentLang] || dayNames.en;
             
-            let html = dayNames[currentLang].map(d => `<div class="day-name">${d}</div>`).join('');
+            document.getElementById('calMonth').textContent = calYear + ' ' + monthData[calMonth];
+            
+            let html = dayData.map(d => `<div class="day-name">${d}</div>`).join('');
             
             for (let i = 0; i < startDay; i++) {
                 html += '<div class="day empty"></div>';
@@ -492,8 +505,20 @@
             }
         }
         
+        function changeLang(lang) {
+            localStorage.setItem('lang', lang);
+            window.currentLang = lang;
+            if (typeof updateLang === 'function') updateLang();
+            updateAllPages();
+            renderCalendar();
+            updateRecommend();
+        }
+        
+        if (!window.currentLang) {
+            window.currentLang = localStorage.getItem('lang') || 'en';
+        }
+        
         renderCalendar();
-        updateRecommend();
         updateAllPages();
         
         document.getElementById('langSelect').addEventListener('change', function() {
