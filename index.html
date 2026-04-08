@@ -13,10 +13,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🛠️ AI Online Tool Box - Free Utilities for Everyone</title>
-    <meta name="description" content="Free AI-powered online tool box with date calculator, QR code generator, JSON formatter, Gaokao countdown, holiday calendar, and gift recommendations. Simple, fast, and easy to use for everyone.">
+    <meta name="description" content="Free online AI tool box with date calculator, QR code generator, JSON formatter, Gaokao countdown, holiday calendar, and gift recommendations. Simple, fast, and easy to use for everyone.">
     <meta name="keywords" content="AI tools, online tools, date calculator, QR code generator, JSON formatter, free tools, utilities, AI assistant">
-    <meta name="author" content="Tool Box">
-    <meta property="og:title" content="🛠️ AI Online Tool Box - Free Utilities">
+    <meta name="author" content="AI Tool Box">
+    <meta property="og:title" content="🛠️ AI Online Tool Box - Free AI Utilities">
     <meta property="og:description" content="Free AI-powered online tools including date calculator, QR code generator, JSON formatter and more.">
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://aiaix.top/index.html">
@@ -133,6 +133,22 @@
             font-size: 0.9rem;
             border: 1px solid rgba(0,210,255,0.3);
             cursor: pointer;
+            z-index: 1000;
+        }
+        @media (max-width: 600px) {
+            .lang-switch {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            h1 {
+                font-size: 1.8rem !important;
+                padding-right: 80px;
+            }
+            .subtitle {
+                padding-right: 80px;
+            }
         }
         .tools-grid {
             display: grid;
@@ -356,7 +372,7 @@
         <option value="tl">🌐 Filipino</option>
     </select>
     <div class="container">
-        <h1 id="title" data-i18n="title">🛠️ Tool Box</h1>
+        <h1 id="title" data-i18n="title">🛠️ AI Tool Box</h1>
         <p class="subtitle" id="subtitle" data-i18n="subtitle">Make Life Simpler</p>
         
         <h2>📆 Calendar & Recommendations</h2>
@@ -514,13 +530,13 @@
             const recommendItem = document.getElementById('recommendItem');
             if (nextHoliday) {
                 const holidayNames = {
-                    'New Year': t('holidayList.New Year'),
-                    'Spring Festival': t('holidayList.Spring Festival'),
-                    'Qingming': t('holidayList.Qingming'),
-                    'Labor Day': t('holidayList.Labor Day'),
-                    'Dragon Boat': t('holidayList.Dragon Boat'),
-                    'Mid-Autumn': t('holidayList.Mid-Autumn'),
-                    'National Day': t('holidayList.National Day')
+                    'New Year': t('holidayList.New Year') || 'New Year',
+                    'Spring Festival': t('holidayList.Spring Festival') || 'Spring Festival',
+                    'Qingming': t('holidayList.Qingming') || 'Qingming',
+                    'Labor Day': t('holidayList.Labor Day') || 'Labor Day',
+                    'Dragon Boat': t('holidayList.Dragon Boat') || 'Dragon Boat',
+                    'Mid-Autumn': t('holidayList.Mid-Autumn') || 'Mid-Autumn',
+                    'National Day': t('holidayList.National Day') || 'National Day'
                 };
                 const holidayName = holidayNames[nextHoliday.name] || nextHoliday.name;
                 
@@ -538,20 +554,22 @@
                     giftIcon = '🎉';
                 }
                 
-                const daysText = t('days');
-                const daysLeft = t('daysLeft');
+                const daysText = t('days') || 'days';
+                const daysLeft = t('daysLeft') || 'left';
                 
                 recommendItem.innerHTML = `
                     <div class="icon">${giftIcon}</div>
                     <div class="info">
                         <h4>${holidayName} - ${nextHoliday.date}</h4>
-                        <p>${daysLeft} ${holidayName} ${nextHoliday.diff} ${daysText}</p>
+                        <p>${daysLeft}: ${nextHoliday.diff} ${daysText}</p>
                     </div>
-                    <div class="countdown">${nextHoliday.diff}${daysText}</div>
+                    <div class="countdown">${nextHoliday.diff} ${daysText}</div>
                 `;
                 
                 recommendItem.style.cursor = 'pointer';
                 recommendItem.onclick = () => window.location.href = giftLink;
+            } else {
+                recommendItem.innerHTML = '<p style="color:#888;">No upcoming holidays in 2026</p>';
             }
         }
         
@@ -569,6 +587,7 @@
         }
         
         renderCalendar();
+        updateRecommend();
         updateAllPages();
         
         document.getElementById('langSelect').addEventListener('change', function() {
@@ -582,7 +601,7 @@
             <a href="https://www.instagram.com/aiaixtop/" target="_blank" rel="noopener" title="Instagram">📷 Instagram</a>
             <a href="https://www.linkedin.com/in/aiaix-top-697b10401/" target="_blank" rel="noopener" title="LinkedIn">💼 LinkedIn</a>
         </div>
-        <p>&copy; 2026 AI Online Tool Box. All rights reserved.</p>
+        <p>&copy; 2026 AI Online AI Tool Box. All rights reserved.</p>
     </footer>
 </body>
 </html>

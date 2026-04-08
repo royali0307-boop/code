@@ -1,6 +1,6 @@
 const translations = {
     en: {
-        title: '🛠️ Tool Box', subtitle: 'Make Life Simpler',
+        title: '🛠️ AI Tool Box', subtitle: 'Make Life Simpler',
         dateCalc: 'Date Calculator', dateCalcDesc: 'Date +/-, Interval, Countdown',
         gaokao: 'Gaokao Countdown', gaokaoDesc: '2026 College Entrance Exam',
         holiday: '2026 Holidays', holidayDesc: 'Full Year Holiday Query',
@@ -25,7 +25,7 @@ const translations = {
         holidayList: { 'New Year': 'New Year', 'Spring Festival': 'Spring Festival', 'Qingming': 'Qingming', 'Labor Day': 'Labor Day', 'Dragon Boat': 'Dragon Boat', 'Mid-Autumn': 'Mid-Autumn', 'National Day': 'National Day' }
     },
     gh: {
-        title: '🛠️ Tool Box', subtitle: 'Maame Wo Simplifies',
+        title: '🛠️ AI Tool Box', subtitle: 'Maame Wo Simplifies',
         dateCalc: 'Date Calculator', dateCalcDesc: 'Date +/-, Interval, Countdown',
         gaokao: 'Gaokao Countdown', gaokaoDesc: '2026 College Entrance Exam',
         holiday: '2026 Holidays', holidayDesc: 'Full Year Holiday Query',
@@ -50,7 +50,7 @@ const translations = {
         holidayList: { 'New Year': 'New Year', 'Spring Festival': 'Christmas', 'Qingming': 'Qingming', 'Labor Day': 'Labor Day', 'Dragon Boat': 'Homowo', 'Mid-Autumn': 'Homowo', 'National Day': 'National Day' }
     },
     ng: {
-        title: '🛠️ Tool Box', subtitle: 'Make Life Simpler',
+        title: '🛠️ AI Tool Box', subtitle: 'Make Life Simpler',
         dateCalc: 'Date Calculator', dateCalcDesc: 'Date +/-, Interval, Countdown',
         gaokao: 'Gaokao Countdown', gaokaoDesc: '2026 College Entrance Exam',
         holiday: '2026 Holidays', holidayDesc: 'Full Year Holiday Query',
@@ -75,7 +75,7 @@ const translations = {
         holidayList: { 'New Year': 'New Year', 'Spring Festival': 'Christmas', 'Qingming': '清明节', 'Labor Day': 'Workers Day', 'Dragon Boat': '端午节', 'Mid-Autumn': '中秋节', 'National Day': 'National Day' }
     },
     in: {
-        title: '🛠️ Tool Box', subtitle: 'Make Life Simpler',
+        title: '🛠️ AI Tool Box', subtitle: 'Make Life Simpler',
         dateCalc: 'Date Calculator', dateCalcDesc: 'Date +/-, Interval, Countdown',
         gaokao: 'Gaokao Countdown', gaokaoDesc: '2026 College Entrance Exam',
         holiday: '2026 Holidays', holidayDesc: 'Full Year Holiday Query',
@@ -135,7 +135,7 @@ const translations = {
         holidayList: { 'New Year': 'नव वर्ष', 'Spring Festival': 'क्रिसमस', 'Qingming': 'विसर्जन', 'Labor Day': 'श्रम दिवस', 'Dragon Boat': 'झूंड', 'Mid-Autumn': 'दीपावली', 'National Day': 'गणतंत्र दिवस' }
     },
     uk: {
-        title: '🛠️ Tool Box', subtitle: 'Make Life Simpler',
+        title: '🛠️ AI Tool Box', subtitle: 'Make Life Simpler',
         dateCalc: 'Date Calculator', dateCalcDesc: 'Date +/-, Interval, Countdown',
         gaokao: 'Gaokao Countdown', gaokaoDesc: '2026 College Entrance Exam',
         holiday: '2026 Holidays', holidayDesc: 'Full Year Holiday Query',
@@ -160,7 +160,7 @@ const translations = {
         holidayList: { 'New Year': 'New Year', 'Spring Festival': 'Spring Festival', 'Qingming': 'Qingming', 'Labor Day': 'May Day', 'Dragon Boat': 'Dragon Boat', 'Mid-Autumn': 'Mid-Autumn', 'National Day': 'National Day' }
     },
     ph: {
-        title: '🛠️ Tool Box', subtitle: 'Gawing Mas Simple ang Buhay',
+        title: '🛠️ AI Tool Box', subtitle: 'Gawing Mas Simple ang Buhay',
         dateCalc: 'Kalkulator ng Petsa', dateCalcDesc: 'Petsa +/-, Interval, Countdown',
         gaokao: 'Gaokao Countdown', gaokaoDesc: '2026 College Entrance Exam',
         holiday: '2026 Holidays', holidayDesc: 'Taunang Holiday Query',
@@ -245,7 +245,7 @@ const translations = {
         holidayList: { 'New Year': 'Tahun Baru', 'Spring Festival': 'Tahun Baru Cina', 'Qingming': 'Qingming', 'Labor Day': 'Hari Buruh', 'Dragon Boat': 'Boat Dragon', 'Mid-Autumn': 'Mid-Autumn', 'National Day': 'Hari Nasional' }
     },
     tl: {
-        title: '🛠️ Tool Box', subtitle: 'Gawing Mas Simple ang Buhay',
+        title: '🛠️ AI Tool Box', subtitle: 'Gawing Mas Simple ang Buhay',
         dateCalc: 'Kalkulator ng Petsa', dateCalcDesc: 'Petsa +/-, Interval, Countdown',
         gaokao: 'Gaokao Countdown', gaokaoDesc: '2026 College Entrance Exam',
         holiday: '2026 Holidays', holidayDesc: 'Taunang Holiday Query',
