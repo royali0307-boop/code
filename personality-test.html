@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 MBTI Personality Test - Discover Your Type</title>
+    <meta name="description" content="Free MBTI personality test. Discover your 16 personality types through scientific questions. Learn about your strengths and characteristics.">
+    <meta name="keywords" content="MBTI, personality test, Myers-Briggs, 性格测试, MBTI测试">
+    <meta property="og:title" content="🧠 MBTI Personality Test">
+    <meta property="og:description" content="Discover your personality type">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://aiaix.top/personality-test.html">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2PEK18SWM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-M2PEK18SWM');
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        
+        h1 { text-align: center; margin-bottom: 10px; font-size: 2rem; }
+        .subtitle { text-align: center; color: #aaa; margin-bottom: 30px; }
+        
+        .question-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .question-num { color: #00d2ff; font-size: 0.9rem; margin-bottom: 10px; }
+        .question-text { font-size: 1.1rem; margin-bottom: 20px; }
+        
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        .option {
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        .option:hover { background: rgba(255,255,255,0.15); border-color: #00d2ff; }
+        .option.selected { background: rgba(0,210,255,0.3); border-color: #00d2ff; }
+        
+        .progress {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00d2ff, #00ff88);
+            transition: width 0.3s;
+        }
+        
+        .result { display: none; text-align: center; padding: 40px 20px; }
+        .result.show { display: block; }
+        .result-icon { font-size: 4rem; margin-bottom: 20px; }
+        .result-title { font-size: 2rem; margin-bottom: 10px; color: #00d2ff; }
+        .result-type { font-size: 3rem; font-weight: bold; margin: 20px 0; }
+        .result-desc { color: #aaa; line-height: 1.8; margin-bottom: 30px; }
+        .result-stats { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-val { font-size: 1.5rem; color: #00d2ff; }
+        .stat-label { font-size: 0.8rem; color: #888; }
+        
+        .btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #00d2ff, #00ff88);
+            border: none;
+            border-radius: 30px;
+            color: #000;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .btn:hover { transform: scale(1.05); }
+        
+        .restart-btn { margin-top: 20px; background: rgba(255,255,255,0.2); color: #fff; }
+        
+        .intro { text-align: center; }
+        .intro p { color: #aaa; margin-bottom: 20px; line-height: 1.8; }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .question-text { font-size: 1rem; }
+            .result-type { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn" data-i18n="backHome" style="display:inline-block;padding:10px 20px;background:rgba(255,255,255,0.1);border-radius:8px;color:#00d2ff;text-decoration:none;margin-bottom:20px;">← Back</a>
+        
+        <h1 data-i18n="mbtiTitle">🧠 MBTI Personality Test</h1>
+        <p class="subtitle" data-i18n="mbtiSubtitle">Discover your 16 personality types</p>
+        
+        <div class="progress">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        
+        <div class="intro" id="intro">
+            <p data-i18n="mbtiIntro1">The MBTI (Myers-Briggs Type Indicator) is one of the most popular personality tests worldwide. It categorizes personality into 16 types based on four dimensions:</p>
+            <p style="color:#00d2ff;margin-bottom:10px;">E/I · S/N · T/F · J/P</p>
+            <p data-i18n="mbtiIntro2">Answer 12 questions to discover your MBTI type!</p>
+            <button class="btn" onclick="startTest()" data-i18n="mbtiStartBtn">Start Test</button>
+        </div>
+        
+        <div id="quiz" style="display:none"></div>
+        
+        <div class="result" id="result">
+            <div class="result-icon">🎯</div>
+            <div class="result-title" data-i18n="mbtiResultTitle">Your Personality Type</div>
+            <div class="result-type" id="resultType">INTJ</div>
+            <div class="result-desc" id="resultDesc"></div>
+            <div class="result-stats">
+                <div class="stat"><div class="stat-val" id="statE">50%</div><div class="stat-label">Extrovert</div></div>
+                <div class="stat"><div class="stat-val" id="statS">50%</div><div class="stat-label">Sensing</div></div>
+                <div class="stat"><div class="stat-val" id="statT">50%</div><div class="stat-label">Thinking</div></div>
+                <div class="stat"><div class="stat-val" id="statJ">50%</div><div class="stat-label">Judging</div></div>
+            </div>
+            <button class="btn" onclick="restartTest()" data-i18n="mbtiRestartBtn">Take Test Again</button>
+        </div>
+    </div>
+    
+    <script src="lang.js"></script>
+    <script>
+        window.currentLang = localStorage.getItem('lang') || 'en';
+        
+        function t(key) {
+            return (window.translations[window.currentLang] && window.translations[window.currentLang][key]) || key;
+        }
+        
+        function updateLang() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.textContent = t(key);
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLang();
+            loadQuestions();
+        });
+        
+        function loadQuestions() {
+            const lang = window.currentLang;
+            const q = window.translations[lang] || window.translations['en'];
+            
+            questions[0].question = q.mbtiQ1 || 'When you spend time with a group of friends, you usually:';
+            questions[0].options[0].text = q.mbtiQ1A1 || 'Feel energized and talk a lot';
+            questions[0].options[1].text = q.mbtiQ1A2 || 'Feel drained and need time alone to recharge';
+            
+            questions[1].question = q.mbtiQ2 || 'When learning something new, you prefer to:';
+            questions[1].options[0].text = q.mbtiQ2A1 || 'Focus on concrete facts and practical details';
+            questions[1].options[1].text = q.mbtiQ2A2 || 'Explore ideas, patterns, and possibilities';
+            
+            questions[2].question = q.mbtiQ3 || 'When making decisions, you usually rely on:';
+            questions[2].options[0].text = q.mbtiQ3A1 || 'Logic and objective analysis';
+            questions[2].options[1].text = q.mbtiQ3A2 || 'Personal values and how it affects others';
+            
+            questions[3].question = q.mbtiQ4 || 'At work or school, you prefer to:';
+            questions[3].options[0].text = q.mbtiQ4A1 || 'Plan ahead and follow a schedule';
+            questions[3].options[1].text = q.mbtiQ4A2 || 'Stay flexible and go with the flow';
+            
+            questions[4].question = q.mbtiQ5 || 'In a social gathering, you tend to:';
+            questions[4].options[0].text = q.mbtiQ5A1 || 'Meet new people and start conversations';
+            questions[4].options[1].text = q.mbtiQ5A2 || 'Stick with people you know well';
+            
+            questions[5].question = q.mbtiQ6 || 'You trust more:';
+            questions[5].options[0].text = q.mbtiQ6A1 || 'What you have directly experienced';
+            questions[5].options[1].text = q.mbtiQ6A2 || 'Your intuition and gut feelings';
+            
+            questions[6].question = q.mbtiQ7 || 'In an argument, you are more likely to:';
+            questions[6].options[0].text = q.mbtiQ7A1 || 'Point out logical flaws';
+            questions[6].options[1].text = q.mbtiQ7A2 || 'Consider the emotional impact';
+            
+            questions[7].question = q.mbtiQ8 || 'Your workspace is usually:';
+            questions[7].options[0].text = q.mbtiQ8A1 || 'Organized with everything in its place';
+            questions[7].options[1].text = q.mbtiQ8A2 || 'Flexible, with things where you need them';
+            
+            questions[8].question = q.mbtiQ9 || 'When you have a problem, you usually:';
+            questions[8].options[0].text = q.mbtiQ9A1 || 'Talk to others to get different perspectives';
+            questions[8].options[1].text = q.mbtiQ9A2 || 'Think through it quietly on your own';
+            
+            questions[9].question = q.mbtiQ10 || 'You are more interested in:';
+            questions[9].options[0].text = q.mbtiQ10A1 || 'What is real and happening now';
+            questions[9].options[1].text = q.mbtiQ10A2 || 'What could be and future possibilities';
+            
+            questions[10].question = q.mbtiQ11 || 'You would describe yourself as more:';
+            questions[10].options[0].text = q.mbtiQ11A1 || 'Fair and objective';
+            questions[10].options[1].text = q.mbtiQ11A2 || 'Compassionate and caring';
+            
+            questions[11].question = q.mbtiQ12 || 'When starting a project, you prefer to:';
+            questions[11].options[0].text = q.mbtiQ12A1 || 'Plan every step before starting';
+            questions[11].options[1].text = q.mbtiQ12A2 || 'Start and adjust as you go';
+            
+            document.getElementById('statE').textContent = t('mbtiExtrovert') || 'Extrovert';
+            document.getElementById('statS').textContent = t('mbtiSensing') || 'Sensing';
+            document.getElementById('statT').textContent = t('mbtiThinking') || 'Thinking';
+            document.getElementById('statJ').textContent = t('mbtiJudging') || 'Judging';
+        }
+        
+        const questions = [
+            {
+                dimension: 'E-I',
+                question: 'When you spend time with a group of friends, you usually:',
+                options: [
+                    { value: 'E', text: 'Feel energized and talk a lot' },
+                    { value: 'I', text: 'Feel drained and need time alone to recharge' }
+                ]
+            },
+            {
+                dimension: 'S-N',
+                question: 'When learning something new, you prefer to:',
+                options: [
+                    { value: 'S', text: 'Focus on concrete facts and practical details' },
+                    { value: 'N', text: 'Explore ideas, patterns, and possibilities' }
+                ]
+            },
+            {
+                dimension: 'T-F',
+                question: 'When making decisions, you usually rely on:',
+                options: [
+                    { value: 'T', text: 'Logic and objective analysis' },
+                    { value: 'F', text: 'Personal values and how it affects others' }
+                ]
+            },
+            {
+                dimension: 'J-P',
+                question: 'At work or school, you prefer to:',
+                options: [
+                    { value: 'J', text: 'Plan ahead and follow a schedule' },
+                    { value: 'P', text: 'Stay flexible and go with the flow' }
+                ]
+            },
+            {
+                dimension: 'E-I',
+                question: 'In a social gathering, you tend to:',
+                options: [
+                    { value: 'E', text: 'Meet new people and start conversations' },
+                    { value: 'I', text: 'Stick with people you know well' }
+                ]
+            },
+            {
+                dimension: 'S-N',
+                question: 'You trust more:',
+                options: [
+                    { value: 'S', text: 'What you have directly experienced' },
+                    { value: 'N', text: 'Your intuition and gut feelings' }
+                ]
+            },
+            {
+                dimension: 'T-F',
+                question: 'In an argument, you are more likely to:',
+                options: [
+                    { value: 'T', text: 'Point out logical flaws' },
+                    { value: 'F', text: 'Consider the emotional impact' }
+                ]
+            },
+            {
+                dimension: 'J-P',
+                question: 'Your workspace is usually:',
+                options: [
+                    { value: 'J', text: 'Organized with everything in its place' },
+                    { value: 'P', text: 'Flexible, with things where you need them' }
+                ]
+            },
+            {
+                dimension: 'E-I',
+                question: 'When you have a problem, you usually:',
+                options: [
+                    { value: 'E', text: 'Talk to others to get different perspectives' },
+                    { value: 'I', text: 'Think through it quietly on your own' }
+                ]
+            },
+            {
+                dimension: 'S-N',
+                question: 'You are more interested in:',
+                options: [
+                    { value: 'S', text: 'What is real and happening now' },
+                    { value: 'N', text: 'What could be and future possibilities' }
+                ]
+            },
+            {
+                dimension: 'T-F',
+                question: 'You would describe yourself as more:',
+                options: [
+                    { value: 'T', text: 'Fair and objective' },
+                    { value: 'F', text: 'Compassionate and caring' }
+                ]
+            },
+            {
+                dimension: 'J-P',
+                question: 'When starting a project, you prefer to:',
+                options: [
+                    { value: 'J', text: 'Plan every step before starting' },
+                    { value: 'P', text: 'Start and adjust as you go' }
+                ]
+            }
+        ];
+        
+        let currentQuestion = 0;
+        let scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+        
+        function startTest() {
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            showQuestion();
+        }
+        
+        function showQuestion() {
+            const q = questions[currentQuestion];
+            const quiz = document.getElementById('quiz');
+            
+            quiz.innerHTML = `
+                <div class="question-card">
+                    <div class="question-num">Question ${currentQuestion + 1} of ${questions.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" onclick="selectOption('${opt.value}')">${opt.text}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('progressBar').style.width = ((currentQuestion + 1) / questions.length * 100) + '%';
+        }
+        
+        function selectOption(value) {
+            scores[value]++;
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+        
+        function showResult() {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('result').classList.add('show');
+            
+            const type = (scores.E >= scores.I ? 'E' : 'I') +
+                        (scores.S >= scores.N ? 'S' : 'N') +
+                        (scores.T >= scores.F ? 'T' : 'F') +
+                        (scores.J >= scores.P ? 'J' : 'P');
+            
+            document.getElementById('resultType').textContent = type;
+            
+            const descriptions = {
+                'INTJ': { icon: '🧠', desc: 'You are a strategic thinker with a clear vision for the future. You prefer working independently and value competence and logic.' },
+                'INTP': { icon: '🔬', desc: 'You are a curious analyzer who loves understanding how things work. You enjoy theoretical discussions and solving complex problems.' },
+                'ENTJ': { icon: '👔', desc: 'You are a natural leader who is confident and decisive. You enjoy taking charge and driving projects forward.' },
+                'ENTP': { icon: '💡', desc: 'You are an innovative brainstormer who loves debates and new ideas. You enjoy challenging conventions and finding creative solutions.' },
+                'INFJ': { icon: '🌟', desc: 'You are an insightful idealist with a clear sense of purpose. You care deeply about helping others and making the world better.' },
+                'INFP': { icon: '🎨', desc: 'You are a compassionate dreamer who values authenticity and personal growth. You follow your heart and seek meaningful connections.' },
+                'ENFJ': { icon: '🎭', desc: 'You are an enthusiastic leader who inspires others. You are charismatic and excel at bringing people together.' },
+                'ENFP': { icon: '🦋', desc: 'You are a passionate creative who loves exploring new possibilities. Your energy and optimism inspire those around you.' },
+                'ISTJ': { icon: '📋', desc: 'You are a reliable organizer who values tradition and responsibility. You prefer clear structure and practical solutions.' },
+                'ISFJ': { icon: '🏠', desc: 'You are a devoted caretaker who is loyal and thoughtful. You put others needs first and excel at supporting people.' },
+                'ESTJ': { icon: '⚖️', desc: 'You are an efficient executor who values results and organization. You are practical and good at managing projects.' },
+                'ESFJ': { icon: '🤝', desc: 'You are a warm host who values harmony and cooperation. You are caring and enjoy helping others succeed.' },
+                'ISTP': { icon: '🔧', desc: 'You are a practical problem-solver who loves working with your hands. You are calm under pressure and enjoy learning how things work.' },
+                'ISFP': { icon: '🌸', desc: 'You are a gentle artist who values beauty and personal expression. You are spontaneous and follow your heart.' },
+                'ESTP': { icon: '⚡', desc: 'You are an energetic adventurer who loves action and excitement. You are practical and good at seizing opportunities.' },
+                'ESFP': { icon: '🎉', desc: 'You are a joyful entertainer who lives in the moment. Your energy and warmth make everyone feel welcome.' }
+            };
+            
+            const result = descriptions[type] || { icon: '✨', desc: 'You have a unique and balanced personality!' };
+            document.querySelector('.result-icon').textContent = result.icon;
+            document.getElementById('resultDesc').textContent = result.desc;
+            
+            const total = questions.length;
+            document.getElementById('statE').textContent = Math.round(scores.E / total * 100) + '%';
+            document.getElementById('statS').textContent = Math.round(scores.S / total * 100) + '%';
+            document.getElementById('statT').textContent = Math.round(scores.T / total * 100) + '%';
+            document.getElementById('statJ').textContent = Math.round(scores.J / total * 100) + '%';
+        }
+        
+        function restartTest() {
+            currentQuestion = 0;
+            scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+            document.getElementById('result').classList.remove('show');
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('intro').style.display = 'block';
+            document.getElementById('progressBar').style.width = '0%';
+        }
+    </script>
+</body>
+</html>
