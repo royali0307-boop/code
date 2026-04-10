@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ AI Essay Generator - Create Essays with AI</title>
+    <meta name="description" content="Free AI-powered essay generator. Enter your topic, choose essay type and length, and AI will generate a unique essay for you. Perfect for students and writers.">
+    <meta name="keywords" content="AI essay generator, essay writer, essay maker, 自动写作文, 作文生成器, AI写作">
+    <meta property="og:title" content="✨ AI Essay Generator">
+    <meta property="og:description" content="Generate unique essays with AI. Enter topic, choose type and length.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://aiaio.top/essay-generator.html">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2PEK18SWM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-M2PEK18SWM');
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 {
+            font-size: 2rem;
+            color: #00d2ff;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #fff;
+            margin: 20px 0 15px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #00d2ff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            transition: background 0.3s;
+            position: relative;
+            z-index: 10;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 20px;
+            font-size: 1rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            outline: none;
+            transition: border-color 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d2ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+        select option {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 10px;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #00d2ff;
+        }
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+            font-family: inherit;
+        }
+        
+        button {
+            padding: 14px 30px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        button:hover { transform: translateY(-2px); }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: none;
+        }
+        .result.show { display: block; }
+        .result h3 {
+            color: #00d2ff;
+            margin-bottom: 15px;
+        }
+        .result-content {
+            line-height: 1.8;
+            white-space: pre-wrap;
+        }
+        .result-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .result-actions button {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .tips {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0,210,255,0.1);
+            border-radius: 10px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #00d2ff;
+            font-size: 12px;
+            border: 1px solid rgba(0,210,255,0.3);
+            cursor: pointer;
+            z-index: 1000;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d2ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            background-size: 12px;
+            padding-right: 24px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .social-links a {
+            color: #00d2ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .lang-switch { top: 10px; right: 10px; font-size: 0.8rem; }
+            .back-btn { position: absolute; left: 10px; top: 10px; margin: 0; z-index: 1001; padding: 8px 12px; }
+            .container { padding-top: 50px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back</a>
+        <h1>✨ AI Essay Generator</h1>
+        
+        <div class="form-group">
+            <label>Topic / Title</label>
+            <input type="text" id="essayTopic" placeholder="Enter your essay topic or title...">
+        </div>
+        
+        <div class="form-group">
+            <label>Essay Type</label>
+            <select id="essayType">
+                <option value="Narrative">Narrative 记叙文</option>
+                <option value="Expository">Expository 说明文</option>
+                <option value="Argumentative">Argumentative 议论文</option>
+                <option value="Lyric">Lyric 抒情文</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Grade Level</label>
+            <select id="essayGrade">
+                <option value="primary-low">Primary School (Low Grade) 小学低年级</option>
+                <option value="primary-high">Primary School (High Grade) 小学高年级</option>
+                <option value="middle" selected>Middle School 初中</option>
+                <option value="high">High School 高中</option>
+                <option value="university">University 大学</option>
+                <option value="thesis">Thesis 论文</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Length</label>
+            <select id="essayLength">
+                <option value="300">Short (300 words)</option>
+                <option value="500" selected>Medium (500 words)</option>
+                <option value="800">Long (800 words)</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Writing Style</label>
+            <select id="essayStyle">
+                <option value="Formal">Formal 严肃</option>
+                <option value="Casual">Casual 活泼</option>
+                <option value="Literary">Literary 抒情</option>
+            </select>
+        </div>
+        
+        <button onclick="generateEssay()" id="genBtn">Generate Essay</button>
+        
+        <div class="tips">
+            💡 <span>Enter a clear topic or title. The AI will generate an essay based on your selections.</span>
+        </div>
+        
+        <div class="result" id="result">
+            <h3>📄 Generated Essay</h3>
+            <div class="result-content" id="resultContent"></div>
+            <div class="result-actions">
+                <button onclick="regenerateEssay()" id="regenBtn">🔄 Regenerate</button>
+                <button onclick="copyResult()">Copy</button>
+                <button onclick="downloadResult()">Download</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://x.com/AiaixTop" target="_blank">🐦</a>
+            <a href="https://www.instagram.com/aiaixtop/" target="_blank">📷</a>
+            <a href="https://www.linkedin.com/in/aiaix-top-697b10401/" target="_blank">💼</a>
+        </div>
+        <p>&copy; 2026 AI Essay Writing Platform</p>
+    </footer>
+    
+    <script>
+        function generateEssay() {
+            const topic = document.getElementById('essayTopic').value.trim();
+            const type = document.getElementById('essayType').value;
+            const grade = document.getElementById('essayGrade').value;
+            const length = document.getElementById('essayLength').value;
+            const style = document.getElementById('essayStyle').value;
+            const btn = document.getElementById('genBtn');
+            
+            if (!topic) {
+                alert('Please enter a topic!');
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.textContent = 'Generating...';
+            
+            setTimeout(() => {
+                const essay = generateSampleEssay(topic, type, grade, length, style);
+                document.getElementById('resultContent').textContent = essay;
+                document.getElementById('result').classList.add('show');
+                btn.disabled = false;
+                btn.textContent = 'Generate Essay';
+            }, 2000);
+        }
+        
+        function regenerateEssay() {
+            const topic = document.getElementById('essayTopic').value.trim();
+            const type = document.getElementById('essayType').value;
+            const grade = document.getElementById('essayGrade').value;
+            const length = document.getElementById('essayLength').value;
+            const style = document.getElementById('essayStyle').value;
+            const btn = document.getElementById('regenBtn');
+            
+            if (!topic) return;
+            
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Generating...';
+            
+            setTimeout(() => {
+                const essay = generateSampleEssay(topic, type, grade, length, style);
+                document.getElementById('resultContent').textContent = essay;
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }, 1000);
+        }
+        
+        function generateSampleEssay(topic, type, grade, length, style) {
+            const lang = window.currentLang === 'zh' ? 'zh' : 'en';
+            const typeMap = {
+                'Narrative': lang === 'zh' ? '记叙文' : 'Narrative',
+                'Expository': lang === 'zh' ? '说明文' : 'Expository',
+                'Argumentative': lang === 'zh' ? '议论文' : 'Argumentative',
+                'Lyric': lang === 'zh' ? '抒情文' : 'Narrative'
+            };
+            const essayType = typeMap[type] || 'Narrative';
+            
+            const essays = generateDynamicEssay(topic, essayType, grade, length, style, lang);
+            return essays;
+        }
+        
+        function generateDynamicEssay(topic, type, grade, length, style, lang) {
+            const wordCount = parseInt(length);
+            const isZh = lang === 'zh';
+            
+            const gradeIntro = {
+                'primary-low': isZh ? '【小学低年级作文】' : '[Primary School (Low Grade) Essay]',
+                'primary-high': isZh ? '【小学高年级作文】' : '[Primary School (High Grade) Essay]',
+                middle: isZh ? '【初中作文】' : '[Middle School Essay]',
+                high: isZh ? '【高中作文】' : '[High School Essay]',
+                university: isZh ? '【大学作文】' : '[University Essay]',
+                thesis: isZh ? '【论文】' : '[Thesis]'
+            };
+            
+            const templates = {
+                zh: {
+                    记叙文: generateNarrativeZh(topic, wordCount, style),
+                    说明文: generateExpositoryZh(topic, wordCount),
+                    议论文: generateArgumentativeZh(topic, wordCount),
+                    抒情文: generateLyricZh(topic, wordCount)
+                },
+                en: {
+                    Narrative: generateNarrativeEn(topic, wordCount, style),
+                    Expository: generateExpositoryEn(topic, wordCount),
+                    Argumentative: generateArgumentativeEn(topic, wordCount),
+                    Lyric: generateLyricEn(topic, wordCount)
+                }
+            };
+            
+            const essay = templates[lang][type] || templates[lang].记叙文 || templates[lang].Narrative;
+            return gradeIntro[grade] + '\n\n' + essay;
+        }
+        
+        // Chinese templates
+        function generateNarrativeZh(topic, words, style) {
+            const intros = [
+                `每个人都有自己的梦想，我也不例外。`,
+                `说起${topic}，有一件事让我至今难忘。`,
+                `在我成长的过程中，${topic}给我留下了深刻的印象。`,
+                `记得那是我上小学的时候，第一次接触${topic}。`
+            ];
+            const bodies = [
+                `那天，阳光明媚，我来到学校。老师给我们介绍了${topic}，我立刻被它吸引住了。我认真听讲，积极举手回答问题。通过学习，我明白了只要努力就一定有收获。`,
+                `从那以后，我开始认真学习${topic}。每天放学回家，我都会练习老师教的内容。遇到不懂的问题，我会主动问爸爸妈妈。渐渐地，我喜欢上了${topic}。`,
+                `学习${topic}的过程虽然辛苦，但也很有趣。我认识了很多新朋友，我们一起讨论问题，互相帮助。在大家的鼓励下，我的进步越来越大。`
+            ];
+            const conclusions = [
+                `通过学习${topic}，我明白了一个道理：只要坚持不懈，就一定能成功。`,
+                `这就是我和${topic}的故事，我会继续努力学习的！`,
+                `我相信，只要用心去做，${topic}一定会越来越好的！`
+            ];
+            
+            const intro = intros[Math.floor(Math.random() * intros.length)];
+            const body = bodies[Math.floor(Math.random() * bodies.length)];
+            const conclusion = conclusions[Math.floor(Math.random() * conclusions.length)];
+            
+            const styleIntro = style === 'Casual' ? '你们猜怎么着？' : style === 'Literary' ? '那是一段美好的回忆，' : '';
+            const styleConclusion = style === 'Casual' ? '你们说是不是？' : style === 'Literary' ? '那将成为我宝贵的回忆。' : '';
+            
+            return `**${topic}**\n\n${styleIntro}${intro}\n\n${body}\n\n${conclusion}${styleConclusion}`;
+        }
+        
+        function generateExpositoryZh(topic, words) {
+            return `**${topic}**\n\n什么是${topic}呢？让我来给大家介绍一下。\n\n${topic}是我们生活中常见的一样东西。它的作用可大了，可以帮助我们解决很多问题。首先，它非常方便携带，我们可以随时随地使用。其次，它的价格实惠，适合大家购买。最后，它耐用，可以用很长时间。\n\n除了以上几点，${topic}还有许多优点。它设计美观，颜色鲜艳，很受大家欢迎。现在科技越来越发达，${topic}的功能也越来越多，给我们的生活带来了很大的便利。\n\n总的来说，${topic}是一项伟大的发明，为我们的生活增添了乐趣。相信在不久的将来，${topic}会变得更好！`;
+        }
+        
+        function generateArgumentativeZh(topic, words) {
+            return `**${topic}的利与弊**\n\n随着时代的发展，${topic}已经成为我们生活中不可或缺的一部分。那么，${topic}到底有什么好处呢？\n\n首先，${topic}让我们的生活更加便利。通过${topic}，我们可以快速获取信息，与朋友交流，学习新知识。它提高了我们的效率，节省了时间。\n\n其次，${topic}为我们的学习提供了更多资源。无论是查阅资料还是观看教学视频，${topic}都能帮助我们更好地掌握知识。\n\n然而，${topic}也有一些负面影响。有些人过度依赖${topic}，沉迷其中，影响了学习和工作。还有人利用${topic}传播不良信息。\n\n因此，我们要合理使用${topic}，发挥它的优点，避免缺点。让${topic}成为我们学习和生活的好帮手！`;
+        }
+        
+        function generateLyricZh(topic, words) {
+            return `**我对${topic}的热爱**\n\n当清晨的第一缕阳光洒进房间，我就会想起${topic}。它是那样美好，那样令人向往。\n\n${topic}啊，你就像春天里的花朵，给我们的生活带来芬芳；你就像夏日的微风，给我们带来凉爽；你就像秋天的果实，让我们收获满满；你就像冬日的暖阳，给我们温暖。\n\n我爱你，${topic}！你是我的朋友，陪伴我度过每一天；你是我的老师，教会我许多知识；你是我的梦想，指引我前进的方向。\n\n愿${topic}永远在我心中绽放光彩，愿所有人都能感受到${topic}的美好！`;
+        }
+        
+        // English templates
+        function generateNarrativeEn(topic, words, style) {
+            return `**${topic}**\n\nEveryone has a dream, and I am no exception. When I first learned about ${topic}, something special sparked in my heart.\n\nIt was a beautiful morning when I first experienced the magic of ${topic}. I remember walking into the classroom, feeling excited and curious. The teacher introduced ${topic} to us in such an interesting way that I couldn't help but fall in love with it.\n\nSince then, I have been working hard to learn more about ${topic}. Every day after school, I practice what I learned. When I encounter difficulties, I ask my parents or teachers for help. Slowly but surely, I am making progress.\n\n${topic} has taught me that success comes from hard work and persistence. I will continue to pursue my dream of mastering ${topic}!`;
+        }
+        
+        function generateExpositoryEn(topic, words) {
+            return `**All About ${topic}**\n\nLet me tell you about ${topic}, something that has become very important in our daily lives.\n\n${topic} is a wonderful invention that has changed the way we live. First, it is very convenient - we can use it anywhere and anytime. Second, it is affordable and accessible to everyone. Third, it is durable and can be used for a long time.\n\nIn addition to these benefits, ${topic} has many other advantages. It helps us save time and work more efficiently. It also provides us with endless possibilities for learning and entertainment.\n\nIn conclusion, ${topic} is truly a remarkable achievement that makes our lives better. We should appreciate this gift and use it wisely!`;
+        }
+        
+        function generateArgumentativeEn(topic, words) {
+            return `**The Pros and Cons of ${topic}**\n\nIn today's world, ${topic} has become a hot topic of discussion. Some people believe it is beneficial, while others worry about its drawbacks. Let me share my thoughts on this matter.\n\nOn the positive side, ${topic} brings us many benefits. It makes our lives more convenient by connecting people from all over the world. It provides endless learning resources and entertainment options. Moreover, ${topic} has created many job opportunities and boosted economic growth.\n\nHowever, we cannot ignore the negative aspects. Some people spend too much time on ${topic} and neglect their responsibilities. There are also concerns about privacy and security issues.\n\nIn my opinion, the key is to use ${topic} responsibly. We should enjoy its benefits while avoiding its pitfalls. With proper guidance and self-control, ${topic} can be a powerful tool for good!`;
+        }
+        
+        function generateLyricEn(topic, words) {
+            return `**My Love for ${topic}**\n\nOh, ${topic}! How I love you so!\n\nLike the gentle spring breeze that whispers through the trees, like the warm sunshine that lights up my day, ${topic} fills my heart with joy and wonder.\n\nYou are my companion through every season, my teacher who guides me through challenges, my dream that inspires me to reach higher.\n\nWhen I think of ${topic}, I see endless possibilities. I imagine a future where ${topic} brings happiness to millions of people around the world.\n\nDear ${topic}, you are more than just a word - you are a part of me, woven into the fabric of my existence. I promise to cherish and nurture our bond forever.`;
+        }
+        
+        function copyResult() {
+            const content = document.getElementById('resultContent').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+        
+        function downloadResult() {
+            const content = document.getElementById('resultContent').textContent;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'essay.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        applyLanguage(window.currentLang);
+    </script>
+</body>
+</html>

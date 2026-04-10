@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Writing Materials Library - Good Words & Phrases</title>
+    <meta name="description" content="Free writing materials library. Browse good words, good phrases, example essays, and famous quotes for your writing. Perfect reference for students.">
+    <meta name="keywords" content="writing materials, good phrases, example essays, famous quotes, 作文素材, 好词好句, 范文">
+    <meta property="og:title" content="📚 Writing Materials Library">
+    <meta property="og:description" content="Browse good words, phrases, and example essays.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://aiaio.top/materials.html">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2PEK18SWM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-M2PEK18SWM');
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { font-size: 2rem; color: #00d2ff; margin-bottom: 20px; }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #00d2ff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            transition: background 0.3s;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .search-box {
+            margin-bottom: 20px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .category-tab {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 20px;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .category-tab.active {
+            background: #00d2ff;
+            color: #fff;
+        }
+        
+        .material-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .material-card h3 {
+            color: #00d2ff;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .material-card p {
+            color: #ccc;
+            line-height: 1.8;
+        }
+        .material-card .copy-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: rgba(0,210,255,0.2);
+            border: none;
+            border-radius: 8px;
+            color: #00d2ff;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .quote-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00d2ff;
+        }
+        .quote-card .quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .quote-card .author {
+            color: #888;
+            text-align: right;
+        }
+        
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #00d2ff;
+            font-size: 12px;
+            border: 1px solid rgba(0,210,255,0.3);
+            cursor: pointer;
+            z-index: 1000;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d2ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            background-size: 12px;
+            padding-right: 24px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-links a {
+            color: #00d2ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            margin: 0 5px;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .lang-switch { top: 10px; right: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back</a>
+        <h1 data-i18n="matTitle">📚 Materials Library</h1>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" data-i18n-placeholder="matSearch" placeholder="Search materials..." onkeyup="filterMaterials()">
+        </div>
+        
+        <div class="category-tabs">
+            <button class="category-tab active" onclick="showCategory('all')">All</button>
+            <button class="category-tab" onclick="showCategory('words')">Good Words</button>
+            <button class="category-tab" onclick="showCategory('phrases')">Good Phrases</button>
+            <button class="category-tab" onclick="showCategory('essays')">Example Essays</button>
+            <button class="category-tab" onclick="showCategory('quotes')">Famous Quotes</button>
+        </div>
+        
+        <div id="materialsList"></div>
+    </div>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://x.com/AiaixTop" target="_blank">🐦</a>
+            <a href="https://www.instagram.com/aiaixtop/" target="_blank">📷</a>
+            <a href="https://www.linkedin.com/in/aiaix-top-697b10401/" target="_blank">💼</a>
+        </div>
+        <p>&copy; 2026 AI Essay Writing Platform</p>
+    </footer>
+    
+    <script src="lang.js"></script>
+    <script>
+        window.currentLang = localStorage.getItem('lang') || 'en';
+        
+        const materials = {
+            en: {
+                words: [
+                    { word: 'Serendipity', meaning: 'The occurrence of events by chance in a happy way' },
+                    { word: 'Ephemeral', meaning: 'Lasting for a very short time' },
+                    { word: 'Eloquent', meaning: 'Fluent or persuasive in speaking or writing' },
+                    { word: 'Resilient', meaning: 'Able to recover quickly from difficulties' },
+                    { word: 'Melancholy', meaning: 'A deep, persistent sadness' },
+                    { word: 'Ubiquitous', meaning: 'Present, appearing, or found everywhere' },
+                    { word: 'Pragmatic', meaning: 'Dealing with things sensibly and realistically' }
+                ],
+                phrases: [
+                    'A picture is worth a thousand words.',
+                    'Actions speak louder than words.',
+                    'Every cloud has a silver lining.',
+                    'When in Rome, do as the Romans do.',
+                    'The early bird catches the worm.',
+                    'Practice makes perfect.',
+                    'Where there is a will, there is a way.'
+                ],
+                essays: [
+                    {
+                        title: 'The Importance of Reading',
+                        content: 'Reading is one of the most beneficial activities that humans can engage in. It not only provides knowledge but also improves vocabulary, enhances imagination, and develops critical thinking skills. In my experience, books have been my best friends since childhood. They have taken me to magical worlds and taught me valuable life lessons. I believe that cultivating a reading habit is essential for personal growth and development.'
+                    },
+                    {
+                        title: 'My Favorite Season',
+                        content: 'Among the four seasons, spring is my favorite. The weather becomes warm, flowers bloom, and birds return from their winter migration. The world comes alive with vibrant colors and pleasant scents. Spring represents hope and new beginnings, reminding us that after every winter, there comes sunshine. I always feel refreshed and energized during this beautiful season.'
+                    },
+                    {
+                        title: 'The Value of Time',
+                        content: 'Time is the most precious resource that we have. Unlike money, it cannot be earned back once spent. As the saying goes, "Time and tide wait for no man." We must learn to value every moment and use it wisely. In today\'s fast-paced world, time management has become crucial. Those who understand the value of time are more likely to succeed in life.'
+                    }
+                ],
+                quotes: [
+                    { quote: 'The only way to do great work is to love what you do.', author: 'Steve Jobs' },
+                    { quote: 'In the middle of difficulty lies opportunity.', author: 'Albert Einstein' },
+                    { quote: 'The future belongs to those who believe in the beauty of their dreams.', author: 'Eleanor Roosevelt' },
+                    { quote: 'It is during our darkest moments that we must focus to see the light.', author: 'Aristotle' },
+                    { quote: 'The greatest glory in living lies not in never falling, but in rising every time we fall.', author: 'Nelson Mandela' }
+                ]
+            },
+            zh: {
+                words: [
+                    { word: '姹紫嫣红', meaning: '形容各种花朵鲜艳多彩' },
+                    { word: '鸟语花香', meaning: '鸟儿唱歌，花儿飘香，形容春天的美景' },
+                    { word: '别具一格', meaning: '另有一种独特的风格' },
+                    { word: '锲而不舍', meaning: '比喻有恒心，有毅力' },
+                    { word: '孜孜不倦', meaning: '勤奋努力，不知疲倦' },
+                    { word: '持之以恒', meaning: '长期坚持，永不间断' },
+                    { word: '学而不厌', meaning: '学习总感到不满足，形容好学' }
+                ],
+                phrases: [
+                    '书山有路勤为径，学海无涯苦作舟。',
+                    '只要功夫深，铁杵磨成针。',
+                    '失败是成功之母。',
+                    '光阴似箭，日月如梭。',
+                    '一年之计在于春，一日之计在于晨。',
+                    '熟能生巧，巧能生精。',
+                    '天下无难事，只怕有心人。'
+                ],
+                essays: [
+                    {
+                        title: '读书的重要性',
+                        content: '读书是人类最有益的活动之一。它不仅能给我们带来知识，还能提高我们的词汇量，增强想象力，培养批判性思维。在我看来，书是我童年最好的朋友。它们带我进入了神奇的世界，教会了我宝贵的人生道理。我认为培养阅读习惯对个人成长至关重要。'
+                    },
+                    {
+                        title: '我最喜欢的季节',
+                        content: '在四个季节中，我最喜欢春天。天气变暖了，花儿开了，鸟儿也从冬天回来了。世界充满了鲜艳的颜色和芬芳的气味。春天代表着希望和新的开始，提醒我们每个冬天过后都会有阳光。在这个美丽的季节里，我总是感到精神焕发。'
+                    },
+                    {
+                        title: '时间的价值',
+                        content: '时间是我们最宝贵的资源。不像金钱，花掉了就再也赚不回来。俗话说的好："光阴似箭，日月如梭。"我们必须学会珍惜每一刻，善加利用。在当今快节奏的世界里，时间管理变得尤为重要。那些懂得珍惜时间的人更有可能在生活中取得成功。'
+                    }
+                ],
+                quotes: [
+                    { quote: '书山有路勤为径，学海无涯苦作舟。', author: '韩愈' },
+                    { quote: '天生我材必有用。', author: '李白' },
+                    { quote: '失败是成功之母。', author: '名言' },
+                    { quote: '锲而不舍，金石可镂。', author: '荀子' },
+                    { quote: '千里之行，始于足下。', author: '老子' }
+                ]
+            }
+        };
+        
+        let currentCategory = 'all';
+        
+        function showCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            renderMaterials();
+        }
+        
+        function renderMaterials() {
+            const lang = window.currentLang === 'zh' ? 'zh' : 'en';
+            const data = materials[lang];
+            const list = document.getElementById('materialsList');
+            let html = '';
+            
+            if (currentCategory === 'all' || currentCategory === 'words') {
+                if (currentCategory === 'all') html += '<h2 style="color:#00d2ff;margin:20px 0 10px;">好词 / Good Words</h2>';
+                data.words.forEach(item => {
+                    html += `
+                        <div class="material-card">
+                            <h3>${item.word}</h3>
+                            <p>${item.meaning}</p>
+                            <button class="copy-btn" onclick="copyText('${item.word} - ${item.meaning}')">Copy</button>
+                        </div>
+                    `;
+                });
+            }
+            
+            if (currentCategory === 'all' || currentCategory === 'phrases') {
+                if (currentCategory === 'all') html += '<h2 style="color:#00d2ff;margin:20px 0 10px;">好句 / Good Phrases</h2>';
+                data.phrases.forEach(item => {
+                    html += `
+                        <div class="material-card">
+                            <p>${item}</p>
+                            <button class="copy-btn" onclick="copyText('${item}')">Copy</button>
+                        </div>
+                    `;
+                });
+            }
+            
+            if (currentCategory === 'all' || currentCategory === 'essays') {
+                if (currentCategory === 'all') html += '<h2 style="color:#00d2ff;margin:20px 0 10px;">范文 / Example Essays</h2>';
+                data.essays.forEach(item => {
+                    html += `
+                        <div class="material-card">
+                            <h3>${item.title}</h3>
+                            <p>${item.content}</p>
+                            <button class="copy-btn" onclick="copyText('${item.title}\\n${item.content}')">Copy</button>
+                        </div>
+                    `;
+                });
+            }
+            
+            if (currentCategory === 'all' || currentCategory === 'quotes') {
+                if (currentCategory === 'all') html += '<h2 style="color:#00d2ff;margin:20px 0 10px;">名言 / Famous Quotes</h2>';
+                data.quotes.forEach(item => {
+                    html += `
+                        <div class="quote-card">
+                            <div class="quote">"${item.quote}"</div>
+                            <div class="author">—— ${item.author}</div>
+                            <button class="copy-btn" onclick="copyText('${item.quote} —— ${item.author}')">Copy</button>
+                        </div>
+                    `;
+                });
+            }
+            
+            list.innerHTML = html;
+        }
+        
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied!');
+            });
+        }
+        
+        function filterMaterials() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            if (!search) {
+                renderMaterials();
+                return;
+            }
+            // Simple filter - just reload with search consideration
+            const cards = document.querySelectorAll('.material-card, .quote-card');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(search) ? 'block' : 'none';
+            });
+        }
+        
+        function changeLang(lang) {
+            localStorage.setItem('lang', lang);
+            window.currentLang = lang;
+            if (typeof updateAllPages === 'function') updateAllPages();
+            renderMaterials();
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAllPages();
+            document.getElementById('langSelect').value = window.currentLang;
+            renderMaterials();
+        });
+    </script>
+</body>
+</html>

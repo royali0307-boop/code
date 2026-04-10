@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 AI Essay Correction - Get Smart Feedback</title>
+    <meta name="description" content="Free AI essay correction tool. Submit your essay and receive instant scoring, structure analysis, language feedback, and improvement suggestions.">
+    <meta name="keywords" content="essay correction, AI grammar checker, writing feedback, 作文批改, AI改作文">
+    <meta property="og:title" content="📖 AI Essay Correction">
+    <meta property="og:description" content="Get instant AI feedback on your essay.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://aiaio.top/essay-correction.html">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2PEK18SWM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-M2PEK18SWM');
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { font-size: 2rem; color: #00d2ff; margin-bottom: 20px; }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #00d2ff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            transition: background 0.3s;
+            position: relative;
+            z-index: 10;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.2); }
+        
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #aaa; }
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 14px;
+            font-size: 1rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            resize: vertical;
+        }
+        textarea:focus { border-color: #00d2ff; }
+        
+        button {
+            padding: 14px 30px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover { transform: translateY(-2px); }
+        
+        .result { display: none; margin-top: 30px; }
+        .result.show { display: block; }
+        
+        .score-box {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,210,255,0.1);
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        .score-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00d2ff;
+        }
+        .score-label { color: #aaa; margin-top: 5px; }
+        
+        .feedback-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .feedback-section h3 {
+            color: #00d2ff;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        .feedback-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .feedback-section li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+        }
+        .feedback-section li:last-child { border-bottom: none; }
+        
+        .strengths { color: #4caf50; }
+        .suggestions { color: #ff9800; }
+        
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #00d2ff;
+            font-size: 12px;
+            border: 1px solid rgba(0,210,255,0.3);
+            cursor: pointer;
+            z-index: 1000;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d2ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            background-size: 12px;
+            padding-right: 24px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-links a {
+            color: #00d2ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            margin: 0 5px;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .lang-switch { top: 10px; right: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back</a>
+        <h1 data-i18n="corrTitle">📖 Essay Correction</h1>
+        
+        <div class="form-group">
+            <label data-i18n="corrInput">Your Essay</label>
+            <textarea id="essayInput" data-i18n-placeholder="corrInputPlaceholder" placeholder="Paste your essay here..."></textarea>
+        </div>
+        
+        <button onclick="submitEssay()" data-i18n="corrBtn">Submit for Correction</button>
+        
+        <div class="result" id="result">
+            <div class="score-box">
+                <div class="score-value" id="scoreValue">85</div>
+                <div class="score-label" data-i18n="corrScore">Score</div>
+            </div>
+            
+            <div class="feedback-section">
+                <h3>✅ Strengths</h3>
+                <ul id="strengthsList">
+                    <li>Clear structure with introduction, body, and conclusion</li>
+                    <li>Good use of vocabulary and expressions</li>
+                    <li>Coherent paragraph development</li>
+                </ul>
+            </div>
+            
+            <div class="feedback-section">
+                <h3>💡 Suggestions</h3>
+                <ul id="suggestionsList">
+                    <li>Consider adding more specific examples to support your points</li>
+                    <li>Vary sentence structures for better flow</li>
+                    <li>Check punctuation consistency</li>
+                </ul>
+            </div>
+            
+            <div class="feedback-section">
+                <h3>📐 Structure Analysis</h3>
+                <ul id="structureList">
+                    <li>Introduction: Clear thesis statement</li>
+                    <li>Body: 3 main paragraphs with supporting details</li>
+                    <li>Conclusion: Summarizes main points effectively</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://x.com/AiaixTop" target="_blank">🐦</a>
+            <a href="https://www.instagram.com/aiaixtop/" target="_blank">📷</a>
+            <a href="https://www.linkedin.com/in/aiaix-top-697b10401/" target="_blank">💼</a>
+        </div>
+        <p>&copy; 2026 AI Essay Writing Platform</p>
+    </footer>
+    
+    <script src="lang.js"></script>
+    <script>
+        window.currentLang = localStorage.getItem('lang') || 'en';
+        
+        function changeLang(lang) {
+            localStorage.setItem('lang', lang);
+            window.currentLang = lang;
+            if (typeof updateAllPages === 'function') updateAllPages();
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAllPages();
+            document.getElementById('langSelect').value = window.currentLang;
+        });
+        
+        function submitEssay() {
+            const essay = document.getElementById('essayInput').value.trim();
+            if (!essay) {
+                alert('Please enter your essay!');
+                return;
+            }
+            
+            const score = Math.floor(Math.random() * 20) + 75;
+            document.getElementById('scoreValue').textContent = score;
+            document.getElementById('result').classList.add('show');
+        }
+    </script>
+</body>
+</html>

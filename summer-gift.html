@@ -151,14 +151,6 @@
     </style>
 </head>
 <body>
-    <select class="lang-switch" id="langSelect" onchange="changeLang(this.value)">
-        <option value="en">🌐 English</option>
-        <option value="zh">🌐 中文</option>
-        <option value="ko">🌐 한국어</option>
-        <option value="ja">🌐 日本語</option>
-        <option value="ms">🌐 Bahasa Melayu</option>
-        <option value="tl">🌐 Filipino</option>
-    </select>
     <div class="container">
         <a href="index.html" class="back-btn" data-i18n="backHome">← Back</a>
         <h1 data-i18n="summerGift">🎁 Summer Gift Recommendations</h1>
@@ -278,7 +270,7 @@
             return { valid: true };
         }
 
-        const alipayQRCode = 'https://aiaix.top/images/alipay-qr.png';
+        const alipayQRCode = 'image/alipay-qr.png';
         
         function showPay(productName, price, actualValue) {
             const validation = validatePriceFormat(price);

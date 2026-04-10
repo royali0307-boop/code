@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✏️ Writing Practice - Improve Your Writing Skills</title>
+    <meta name="description" content="Free writing practice tool. Choose from prompt writing, continuation exercises, and more. Set time limits and improve your essay writing skills.">
+    <meta name="keywords" content="writing practice, essay practice, prompt writing, 写作练习, 作文练习">
+    <meta property="og:title" content="✏️ Writing Practice">
+    <meta property="og:description" content="Practice your writing skills with various exercises.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://aiaio.top/writing-practice.html">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M2PEK18SWM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-M2PEK18SWM');
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 20px;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { font-size: 2rem; color: #00d2ff; margin-bottom: 20px; }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #00d2ff;
+            text-decoration: none;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            transition: background 0.3s;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .practice-type {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .type-btn {
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .type-btn:hover, .type-btn.active {
+            border-color: #00d2ff;
+            background: rgba(0,210,255,0.1);
+        }
+        .type-btn .icon { font-size: 1.5rem; display: block; margin-bottom: 5px; }
+        
+        .prompt-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .prompt-section h3 { color: #00d2ff; margin-bottom: 15px; }
+        
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #aaa; }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+        textarea {
+            min-height: 300px;
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.8;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+        }
+        button.secondary {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .timer {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,210,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #00d2ff;
+        }
+        
+        .timer.warning { background: rgba(255,152,0,0.2); color: #ff9800; }
+        .timer.danger { background: rgba(244,67,54,0.2); color: #f44336; }
+        
+        .word-count {
+            text-align: right;
+            color: #888;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .sample-prompts {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .sample-prompt {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 15px;
+            color: #aaa;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .sample-prompt:hover { background: rgba(0,210,255,0.2); color: #00d2ff; }
+        
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: #00d2ff;
+            font-size: 12px;
+            border: 1px solid rgba(0,210,255,0.3);
+            cursor: pointer;
+            z-index: 1000;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d2ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 4px center;
+            background-size: 12px;
+            padding-right: 24px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-links a {
+            color: #00d2ff;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            margin: 0 5px;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 1.5rem; }
+            .lang-switch { top: 10px; right: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back</a>
+        <h1 data-i18n="pracTitle">✏️ Writing Practice</h1>
+        
+        <div class="practice-type">
+            <div class="type-btn active" onclick="selectType('prompt')">
+                <span class="icon">📝</span>
+                <span>Prompt Writing</span>
+            </div>
+            <div class="type-btn" onclick="selectType('continue')">
+                <span class="icon">🔄</span>
+                <span>Continuation</span>
+            </div>
+            <div class="type-btn" onclick="selectType('image')">
+                <span class="icon">🖼️</span>
+                <span>Picture Writing</span>
+            </div>
+            <div class="type-btn" onclick="selectType('summary')">
+                <span class="icon">📋</span>
+                <span>Summary</span>
+            </div>
+        </div>
+        
+        <div class="prompt-section">
+            <h3>Writing Prompt</h3>
+            <div class="form-group">
+                <label>Enter your prompt or choose from suggestions:</label>
+                <textarea id="promptInput" placeholder="Enter your writing prompt here..."></textarea>
+                <div class="sample-prompts" id="samplePrompts"></div>
+            </div>
+            
+            <div class="form-group">
+                <label>Time Limit</label>
+                <select id="timeLimit">
+                    <option value="15">15 minutes</option>
+                    <option value="30" selected>30 minutes</option>
+                    <option value="45">45 minutes</option>
+                    <option value="60">60 minutes</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="timer" id="timer">30:00</div>
+        
+        <div class="form-group">
+            <label>Your Essay</label>
+            <textarea id="essayInput" placeholder="Start writing your essay here..." oninput="updateWordCount()"></textarea>
+            <div class="word-count">Words: <span id="wordCount">0</span></div>
+        </div>
+        
+        <div class="action-buttons">
+            <button onclick="startTimer()">Start Practice</button>
+            <button class="secondary" onclick="saveEssay()">Save Essay</button>
+            <button class="secondary" onclick="clearEssay()">Clear</button>
+            <button class="secondary" onclick="showRandomPrompt()">Random Prompt</button>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://x.com/AiaixTop" target="_blank">🐦</a>
+            <a href="https://www.instagram.com/aiaixtop/" target="_blank">📷</a>
+            <a href="https://www.linkedin.com/in/aiaix-top-697b10401/" target="_blank">💼</a>
+        </div>
+        <p>&copy; 2026 AI Essay Writing Platform</p>
+    </footer>
+    
+    <script src="lang.js"></script>
+    <script>
+        window.currentLang = localStorage.getItem('lang') || 'en';
+        
+        let timerInterval;
+        let timeRemaining;
+        let practiceType = 'prompt';
+        
+        const prompts = {
+            en: [
+                'Write about your favorite childhood memory.',
+                'Describe a time when you helped someone.',
+                'What would you do if you could travel to any country?',
+                'Write about a person who inspires you.',
+                'Describe your ideal future career.',
+                'What is the most important lesson life has taught you?',
+                'Write about a challenge you overcame.',
+                'Describe a place that is special to you.'
+            ],
+            zh: [
+                '写一写你最难忘的童年回忆。',
+                '描述一次你帮助别人的经历。',
+                '如果你可以去任何一个国家旅行，你会去哪里？',
+                '写一个激励你的人。',
+                '描述你理想的未来职业。',
+                '生活教会了你最重要的道理是什么？',
+                '写一个你克服的困难。',
+                '描述一个对你特别的地方。'
+            ]
+        };
+        
+        function selectType(type) {
+            practiceType = type;
+            document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.type-btn').classList.add('active');
+            loadSamplePrompts();
+        }
+        
+        function loadSamplePrompts() {
+            const lang = window.currentLang === 'zh' ? 'zh' : 'en';
+            const promptList = prompts[lang];
+            const container = document.getElementById('samplePrompts');
+            container.innerHTML = promptList.map(p => 
+                `<button class="sample-prompt" onclick="selectPrompt('${p}')">${p}</button>`
+            ).join('');
+        }
+        
+        function selectPrompt(prompt) {
+            document.getElementById('promptInput').value = prompt;
+        }
+        
+        function showRandomPrompt() {
+            const lang = window.currentLang === 'zh' ? 'zh' : 'en';
+            const list = prompts[lang];
+            const random = list[Math.floor(Math.random() * list.length)];
+            document.getElementById('promptInput').value = random;
+        }
+        
+        function startTimer() {
+            const minutes = parseInt(document.getElementById('timeLimit').value);
+            timeRemaining = minutes * 60;
+            
+            clearInterval(timerInterval);
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+        
+        function updateTimer() {
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                alert('Time is up! Please save your essay.');
+                return;
+            }
+            
+            timeRemaining--;
+            const mins = Math.floor(timeRemaining / 60);
+            const secs = timeRemaining % 60;
+            
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            
+            timerEl.classList.remove('warning', 'danger');
+            if (timeRemaining < 300) timerEl.classList.add('danger');
+            else if (timeRemaining < 600) timerEl.classList.add('warning');
+        }
+        
+        function updateWordCount() {
+            const text = document.getElementById('essayInput').value;
+            const count = text.trim() ? text.trim().split(/\s+/).length : 0;
+            document.getElementById('wordCount').textContent = count;
+        }
+        
+        function saveEssay() {
+            const prompt = document.getElementById('promptInput').value;
+            const essay = document.getElementById('essayInput').value;
+            const timeLimit = document.getElementById('timeLimit').value;
+            const wordCount = document.getElementById('wordCount').textContent;
+            
+            if (!essay.trim()) {
+                alert('Please write something before saving!');
+                return;
+            }
+            
+            const data = { prompt, essay, timeLimit, wordCount, date: new Date().toLocaleString() };
+            const saved = JSON.parse(localStorage.getItem('savedEssays') || '[]');
+            saved.unshift(data);
+            localStorage.setItem('savedEssays', JSON.stringify(saved.slice(0, 50)));
+            
+            alert('Essay saved!');
+        }
+        
+        function clearEssay() {
+            if (confirm('Are you sure you want to clear your essay?')) {
+                document.getElementById('essayInput').value = '';
+                updateWordCount();
+                clearInterval(timerInterval);
+                document.getElementById('timer').textContent = '30:00';
+            }
+        }
+        
+        function changeLang(lang) {
+            localStorage.setItem('lang', lang);
+            window.currentLang = lang;
+            if (typeof updateAllPages === 'function') updateAllPages();
+            loadSamplePrompts();
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAllPages();
+            document.getElementById('langSelect').value = window.currentLang;
+            loadSamplePrompts();
+        });
+    </script>
+</body>
+</html>
